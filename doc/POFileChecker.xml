@@ -23,7 +23,7 @@
 
   <refnamediv>
     <refname>POFileChecker</refname>
-    <refpurpose>searches for common mistakes in PO files</refpurpose>
+    <refpurpose>searches for common mistakes in PO/POT files</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -40,7 +40,7 @@
     <title>Introduction</title>
     <para>
       <application>POFileChecker</application>
-      searches for common mistakes in PO files.
+      searches for common mistakes in PO/POT files.
     </para>
   </refsect1>
 
@@ -54,6 +54,16 @@
 	<listitem>
 	  <simpara>
             show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--pot</option> or <option>-t</option>
+        </term>
+	<listitem>
+	  <simpara>
+            check a pot file, not a po file
           </simpara>
 	</listitem>
       </varlistentry>

@@ -7,8 +7,7 @@ Distributable under the terms of the GPL - see COPYING
 
 This packages includes the following tools:
 POFileStatus - validator and status reporting
-POFileChecker - searches for common mistakes in PO files
-POTFileChecker - searches for common mistakes in POT files
+POFileChecker - searches for common mistakes in PO/POT files
 POFileConsistency - consistency checker
 POFileEquiv - glossary generator
 POFileSpell - spell checker

@@ -12,7 +12,7 @@ import sys
 import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
-from POFile import POFile
+import POFile
 from util import Output
 
 def usage(code = -1):
@@ -21,36 +21,57 @@ def usage(code = -1):
     w('\n')
     w('Options:\n')
     w('  -h, --help                 show this help\n')
+    w('  -t, --pot                  pot file mode\n')
     w('  -f, --ignore-fuzzy         don\'t check fuzzy translations\n')
     sys.exit(code)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hf", ["help", "ignore-fuzzy"])
+    opts, args = getopt.getopt(sys.argv[1:], "htf",
+                               ["help", "pot", "ignore-fuzzy"])
 except getopt.GetoptError:
     usage()
 ignoreFuzzy = 0
+potMode = 0
 for o, a in opts:
     if o in ("-h", "--help"):
         usage(0)
     if o in ("-f", "--ignore-fuzzy"):
         ignoreFuzzy = 1
+    if o in ("-t", "--pot"):
+        potMode = 1
 if len(args) < 1: usage()
 
-out = Output("po-file-checker")
-for filename in args:
-    po = POFile(filename)
-    if po.parse() == 0:
-        sys.stderr.write('error parsing file %s\n' % filename)
-    else:
-        po.ignoreFuzzy = ignoreFuzzy
-        po.parseHeader()
-        po.check()
-        if po.allowCount == None: po.allowCount = 0
-        if len(po.errors) != po.allowCount:
-            out.opentag('file',
-                        {'name': filename, 'allow': str(po.allowCount)})
-            for l, m, e in po.errors:
-                out.opentag('error', {'line': str(l), 'message': str(m)},
-                            body = e, close = 1)
-            out.closetag()
-out.finish()
+if potMode:
+    out = Output("pot-file-checker")
+    for filename in args:
+        pot = POFile.POTFile(filename)
+        if pot.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+        else:
+            pot.check()
+            if len(pot.errors) > 0:
+                out.opentag('file', {'name': filename})
+                for l, m, e in pot.errors:
+                    out.opentag('error', {'line': str(l), 'message': str(m)},
+                                body = e, close = 1)
+                out.closetag()
+    out.finish()
+else:
+    out = Output("po-file-checker")
+    for filename in args:
+        po = POFile.POFile(filename)
+        if po.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+        else:
+            po.ignoreFuzzy = ignoreFuzzy
+            po.parseHeader()
+            po.check()
+            if po.allowCount == None: po.allowCount = 0
+            if len(po.errors) != po.allowCount:
+                out.opentag('file',
+                            {'name': filename, 'allow': str(po.allowCount)})
+                for l, m, e in po.errors:
+                    out.opentag('error', {'line': str(l), 'message': str(m)},
+                                body = e, close = 1)
+                out.closetag()
+    out.finish()
