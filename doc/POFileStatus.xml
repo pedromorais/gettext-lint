@@ -5,7 +5,7 @@
 
 <refentry>
   <refentryinfo>
-    <title>POFileChecker Manual</title>
+    <title>POFileStatus Manual</title>
     <copyright>
       <year>2004</year>
     </copyright>
@@ -17,18 +17,18 @@
   </refentryinfo>
 
   <refmeta>
-    <refentrytitle>POFileChecker</refentrytitle>
+    <refentrytitle>POFileStatus</refentrytitle>
     <manvolnum>1</manvolnum>
   </refmeta>
 
   <refnamediv>
-    <refname>POFileChecker</refname>
-    <refpurpose>searches for common mistakes in PO files</refpurpose>
+    <refname>POFileStatus</refname>
+    <refpurpose>validator and status reporting</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>POFileChecker</command>
+      <command>POFileStatus</command>
       <arg><replaceable>OPTION</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
@@ -39,8 +39,9 @@
   <refsect1 id="introduction">
     <title>Introduction</title>
     <para>
-      <application>POFileChecker</application>
-      searches for common mistakes in PO files.
+      <application>POFileStatus</application>
+      validates files using <application>msgfmt</application> and
+      reports its status.
     </para>
   </refsect1>
 
@@ -59,64 +60,49 @@
       </varlistentry>
       <varlistentry>
 	<term>
-          <option>--ignore-fuzzy</option> or <option>-i</option>
+          <option>--show-all</option> or <option>-a</option>
         </term>
 	<listitem>
 	  <simpara>
-            don't check validity of fuzzy entries
+            show all files, even if 100% translated
           </simpara>
 	</listitem>
       </varlistentry>
-    </variablelist>
-  </refsect1>
-
-  <refsect1 id="headerdirectives">
-    <title>PO File Header Directives</title>
-    <para>
-      <application>POFileChecker</application> recognizes several PO file
-      header directives. As with all gettext lint tools, these directives
-      are all prefixed with X-POFile.
-    </para>
-    <variablelist>
       <varlistentry>
-	<term>X-POFile-Allow: <replaceable>number</replaceable></term>
+	<term>
+          <option>--break-path</option> or <option>-b</option>
+        </term>
 	<listitem>
 	  <simpara>
-            number of errors to ignore; if number of detected errors is
-            diffent than this they will all be reported; a file with 0
-            errors but an error allowance greater than zero will also 
-            be reported
+            all file path componentes to the output;
+            for example, for the file 
+            <replaceable>dir</replaceable>/<replaceable>file.po</replaceable>
+            the attributes <varname>name-1="dir"</varname> and
+            <varname>name-2="file.po"</varname> would be added
           </simpara>
 	</listitem>
       </varlistentry>
-    </variablelist>
-    <variablelist>
       <varlistentry>
-	<term>X-POFile-CheckAccelerator: <replaceable>1|0</replaceable></term>
+	<term>
+          <option>--pot-dir=</option><replaceable>dir</replaceable> or
+          <option>-p </option><replaceable>dir</replaceable>
+        </term>
 	<listitem>
 	  <simpara>
-            enable or disable checking accelerators, enabled by default
+            use this pot templates dir to check if a po file is obsolete
+            or if a pot file is completely untranslated
           </simpara>
 	</listitem>
       </varlistentry>
-    </variablelist>
-    <variablelist>
       <varlistentry>
-	<term>X-POFile-CheckEndPontuation: <replaceable>1|0</replaceable></term>
+	<term>
+          <option>--pot-exclude=</option><replaceable>pat</replaceable> or
+          <option>-p </option><replaceable>pat</replaceable>
+        </term>
 	<listitem>
 	  <simpara>
-            enable or disable checking ending pontuation, enabled by default
-          </simpara>
-	</listitem>
-      </varlistentry>
-    </variablelist>
-    <variablelist>
-      <varlistentry>
-	<term>X-POFile-LineLength: <replaceable>number</replaceable></term>
-	<listitem>
-	  <simpara>
-            check that the line length doesn't exceed
-            <replaceable>number</replaceable> chars; disable by default
+            exclude pot files that match this pattern;
+            can be used multiple times
           </simpara>
 	</listitem>
       </varlistentry>

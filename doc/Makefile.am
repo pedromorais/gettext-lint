@@ -1,8 +1,10 @@
 man_MANS = POFileConsistency.1 POFileChecker.1 POFileSpell.1 \
-	POTFileChecker.1
+	POFileFill.1 POFileEquiv.1 POFileStatus.1 POTFileChecker.1
 EXTRA_DIST = $(man_MANS)
 docbook = POFileConsistency.xml POFileChecker.xml POFileSpell.xml \
-	POTFileChecker.xml
+	POFileFill.xml POFileEquiv.xml POFileStatus.xml POTFileChecker.xml
+
+docbook: docbook2man docbook2html
 
 docbook2man:
 	for I in $(docbook); do \

@@ -17,27 +17,35 @@
 .el .ne 3
 .IP "\\$1" \\$2
 ..
-.TH "POTFILECHECKER" 1 "" "" "POTFileChecker Manual"
+.TH "POFILEEQUIV" 1 "" "" "POFileEquiv Manual"
 .SH NAME
-POTFileChecker \- searches for common mistakes in POT files
+POFileEquiv \- glossary generator
 .SH "SYNOPSIS"
 .ad l
 .hy 0
-.HP 15
-\fBPOTFileChecker\fR [\fIOPTION\fR] [\fI\&.\&.\&.\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
+.HP 12
+\fBPOFileEquiv\fR [\fIOPTION\fR] [\fI\&.\&.\&.\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
 .ad
 .hy
 
 .SH "INTRODUCTION"
 
 .PP
- POTFileChecker searches for common mistakes in POT files\&.
+ POFileEquiv tries to generate a glossary based on a large enough sample of translations
 
 .SH "COMMAND LINE OPTIONS"
 
 .TP
 \fB\-\-help\fR or \fB\-h\fR
 show usage instructions
+
+.TP
+\fB\-\-max\fR or \fB\-m\fR
+maximum number of words to include for each word
+
+.TP
+\fB\-\-ratio\fR or \fB\-r\fR
+minimum ratio to best match to include a word
 
 .SH "MORE INFORMATION"
 

@@ -5,7 +5,7 @@
 
 <refentry>
   <refentryinfo>
-    <title>POTFileChecker Manual</title>
+    <title>POFileEquiv Manual</title>
     <copyright>
       <year>2004</year>
     </copyright>
@@ -17,18 +17,20 @@
   </refentryinfo>
 
   <refmeta>
-    <refentrytitle>POTFileChecker</refentrytitle>
+    <refentrytitle>POFileEquiv</refentrytitle>
     <manvolnum>1</manvolnum>
   </refmeta>
 
   <refnamediv>
-    <refname>POTFileChecker</refname>
-    <refpurpose>searches for common mistakes in POT files</refpurpose>
+    <refname>POFileEquiv</refname>
+    <refpurpose>
+      glossary generator
+    </refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>POTFileChecker</command>
+      <command>POFileEquiv</command>
       <arg><replaceable>OPTION</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
@@ -39,8 +41,9 @@
   <refsect1 id="introduction">
     <title>Introduction</title>
     <para>
-      <application>POTFileChecker</application>
-      searches for common mistakes in POT files.
+      <application>POFileEquiv</application>
+      tries to generate a glossary based on a large enough sample of
+      translations
     </para>
   </refsect1>
 
@@ -54,6 +57,26 @@
 	<listitem>
 	  <simpara>
             show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--max</option> or <option>-m</option>
+        </term>
+	<listitem>
+	  <simpara>
+            maximum number of words to include for each word
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--ratio</option> or <option>-r</option>
+        </term>
+	<listitem>
+	  <simpara>
+            minimum ratio to best match to include a word
           </simpara>
 	</listitem>
       </varlistentry>

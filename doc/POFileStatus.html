@@ -1,0 +1,33 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileStatus</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2883450"></a><div class="titlepage"><div></div><div></div></div><div class="refnamediv"><h2>Name</h2><p>POFileStatus &#8212; validator and status reporting</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><tt class="command">POFileStatus</tt>  [<i class="replaceable"><tt>OPTION</tt></i>] [<i class="replaceable"><tt>...</tt></i>] [<i class="replaceable"><tt>FILE</tt></i>] [<i class="replaceable"><tt>...</tt></i>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
+      <span class="application">POFileStatus</span>
+      validates files using <span class="application">msgfmt</span> and
+      reports its status.
+    </p></div><div class="refsect1" lang="en"><a name="options"></a><h2>Command Line Options</h2><div class="variablelist"><dl><dt><span class="term">
+          <tt class="option">--help</tt> or <tt class="option">-h</tt>
+        </span></dt><dd>
+            show usage instructions
+          </dd><dt><span class="term">
+          <tt class="option">--show-all</tt> or <tt class="option">-a</tt>
+        </span></dt><dd>
+            show all files, even if 100% translated
+          </dd><dt><span class="term">
+          <tt class="option">--break-path</tt> or <tt class="option">-b</tt>
+        </span></dt><dd>
+            all file path componentes to the output;
+            for example, for the file 
+            <i class="replaceable"><tt>dir</tt></i>/<i class="replaceable"><tt>file.po</tt></i>
+            the attributes <tt class="varname">name-1="dir"</tt> and
+            <tt class="varname">name-2="file.po"</tt> would be added
+          </dd><dt><span class="term">
+          <tt class="option">--pot-dir=</tt><i class="replaceable"><tt>dir</tt></i> or
+          <tt class="option">-p </tt><i class="replaceable"><tt>dir</tt></i>
+        </span></dt><dd>
+            use this pot templates dir to check if a po file is obsolete
+            or if a pot file is completely untranslated
+          </dd><dt><span class="term">
+          <tt class="option">--pot-exclude=</tt><i class="replaceable"><tt>pat</tt></i> or
+          <tt class="option">-p </tt><i class="replaceable"><tt>pat</tt></i>
+        </span></dt><dd>
+            exclude pot files that match this pattern;
+            can be used multiple times
+          </dd></dl></div></div><div class="refsect1" lang="en"><a name="moreinfo"></a><h2>More Information</h2><p>gettext-lint web page: http://gettext-lint.sourceforge.net/</p></div></div></body></html>

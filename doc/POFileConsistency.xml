@@ -29,30 +29,8 @@
   <refsynopsisdiv>
     <cmdsynopsis>
       <command>POFileConsistency</command>
-      <group>
-	<arg>--help</arg>
-	<arg>--h</arg>
-      </group>
-      <group>
-	<arg>--interactive</arg>
-	<arg>--i</arg>
-      </group>
-      <group>
-	<arg>--equivalent=<replaceable>file</replaceable></arg>
-	<arg>-e <replaceable>file</replaceable></arg>
-      </group>
-      <group>
-	<arg>--only-empty</arg>
-	<arg>-o</arg>
-      </group>
-      <group>
-	<arg>--match=<replaceable>string</replaceable></arg>
-	<arg>-m <replaceable>string</replaceable></arg>
-      </group>
-      <group>
-	<arg>--strip-chars=<replaceable>chars</replaceable></arg>
-	<arg>-r <replaceable>chars</replaceable></arg>
-      </group>
+      <arg><replaceable>OPTION</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
@@ -98,7 +76,7 @@
 	<listitem>
 	  <simpara>
             load a file with a list of equivalent msgstr
-            for a given msgid
+            for a given msgid; can be used multiple times
           </simpara>
 	</listitem>
       </varlistentry>
@@ -142,7 +120,17 @@
 
   <refsect1 id="interactive">
     <title>Interactive Mode</title>
-    <para>TODO</para>
+    <para>
+      In interactive mode you iterate through each of the 
+      inconsistencies found.
+      In each prompt you can press <keycap>Enter</keycap> to ignore
+      this inconsistency, a number of a possible translation
+      (<keycap>1</keycap>, <keycap>2</keycap>, ...) to change all 
+      the translations to that text, <keycap>0</keycap> to input a text
+      to use in all the translations, or, if you are using at least one
+      equivalents file, <keycap>a</keycap> to add the exception to the
+      first of those files.
+    </para>
   </refsect1>
 
   <refsect1 id="headerdirectives">
@@ -150,7 +138,7 @@
     <para>
       <application>POFileConsistency</application> recognizes several PO file
       header directives. As with all gettext lint tools, these directives
-      are all prefixed with X-POFile.
+      are all prefixed with <varname>X-POFile</varname>.
     </para>
     <variablelist>
       <varlistentry>
@@ -181,7 +169,21 @@
 
   <refsect1 id="consistencyfile">
     <title>Consistency Equivalents File Format</title>
-    <para>TODO</para>
+    <para>
+      This files consists of a series of empty line separated blocks.
+      For example:
+    </para>
+    <programlisting>msgid 1
+possible translation 1
+possible translation 2
+...
+possible translation n
+
+msgid 2
+possible translation 1
+possible translation 2
+...
+possible translation n</programlisting>
   </refsect1>
 
   <refsect1 id="moreinfo">

@@ -24,7 +24,7 @@ POFileConsistency \- checks consistency in a collection of PO files
 .ad l
 .hy 0
 .HP 18
-\fBPOFileConsistency\fR [\fB\-\-help\fR | \fB\-\-h\fR] [\fB\-\-interactive\fR | \fB\-\-i\fR] [\fB\-\-equivalent=\fIfile\fR\fR | \fB\-e\ \fIfile\fR\fR] [\fB\-\-only\-empty\fR | \fB\-o\fR] [\fB\-\-match=\fIstring\fR\fR | \fB\-m\ \fIstring\fR\fR] [\fB\-\-strip\-chars=\fIchars\fR\fR | \fB\-r\ \fIchars\fR\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
+\fBPOFileConsistency\fR [\fIOPTION\fR] [\fI\&.\&.\&.\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
 .ad
 .hy
 
@@ -41,15 +41,60 @@ show usage instructions
 
 .TP
 \fB\-\-interactive\fR or \fB\-i\fR
-interactive mode, iterate though the inconsistencies using a text mode interface
+interactive mode, iterate though the inconsistencies using a text mode interface; see the Interactive Mode section
 
 .TP
 \fB\-\-equivalent=\fR\fIfile\fR or \fB\-e \fR\fIfile\fR
-load a file with a list of equivalent msgstr for a given msgid
+load a file with a list of equivalent msgstr for a given msgid; can be used multiple times
 
 .TP
 \fB\-\-only\-empty\fR or \fB\-o\fR
 only report inconsistencies with at least one of the translations empty
+
+.TP
+\fB\-\-match=\fR\fIstring\fR or \fB\-m \fR\fIstring\fR
+only report inconsistencies if at least one of the files involved contain the given string
+
+.TP
+\fB\-\-strip\-chars=\fR\fIchars\fR or \fB\-r \fR\fIchars\fR
+remove each of the chars from both msgid and msgstr before checking inconsistencies
+
+.SH "INTERACTIVE MODE"
+
+.PP
+In interactive mode you iterate through each of the inconsistencies found\&. In each prompt you can press Enter to ignore this inconsistency, a number of a possible translation (1, 2, \&.\&.\&.) to change all the translations to that text, 0 to input a text to use in all the translations, or, if you are using at least one equivalents file, a to add the exception to the first of those files\&.
+
+.SH "PO FILE HEADER DIRECTIVES"
+
+.PP
+ POFileConsistency recognizes several PO file header directives\&. As with all gettext lint tools, these directives are all prefixed with \fIX\-POFile\fR\&.
+
+.TP
+X\-POFile\-IgnoreConsistency: \fImsgid\fR
+remove the given msgid from the list of messages to check
+
+.TP
+X\-POFile\-ConsistencyAlias: \fIstring1\fR \fIstring2\fR
+replace all ocorrences of \fIstring1\fR with \fIstring2\fR before checking consistency
+
+.SH "CONSISTENCY EQUIVALENTS FILE FORMAT"
+
+.PP
+This files consists of a series of empty line separated blocks\&. For example:
+
+.nf
+msgid 1
+possible translation 1
+possible translation 2
+\&.\&.\&.
+possible translation n
+
+msgid 2
+possible translation 1
+possible translation 2
+\&.\&.\&.
+possible translation n
+.fi
 
 .SH "MORE INFORMATION"
 

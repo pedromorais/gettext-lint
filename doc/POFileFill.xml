@@ -5,7 +5,7 @@
 
 <refentry>
   <refentryinfo>
-    <title>POTFileChecker Manual</title>
+    <title>POFileFill Manual</title>
     <copyright>
       <year>2004</year>
     </copyright>
@@ -17,20 +17,23 @@
   </refentryinfo>
 
   <refmeta>
-    <refentrytitle>POTFileChecker</refentrytitle>
+    <refentrytitle>POFileFill</refentrytitle>
     <manvolnum>1</manvolnum>
   </refmeta>
 
   <refnamediv>
-    <refname>POTFileChecker</refname>
-    <refpurpose>searches for common mistakes in POT files</refpurpose>
+    <refname>POFileFill</refname>
+    <refpurpose>
+      fill a file with entries already translated in other files
+    </refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>POTFileChecker</command>
+      <command>POFileFill</command>
       <arg><replaceable>OPTION</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
+      <arg><replaceable>TARGET FILE</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
@@ -39,8 +42,8 @@
   <refsect1 id="introduction">
     <title>Introduction</title>
     <para>
-      <application>POTFileChecker</application>
-      searches for common mistakes in POT files.
+      <application>POFileFill</application>
+      fills a file with entries already translated in other files.
     </para>
   </refsect1>
 

@@ -29,22 +29,8 @@
   <refsynopsisdiv>
     <cmdsynopsis>
       <command>POFileSpell</command>
-      <group>
-	<arg>--help</arg>
-	<arg>--h</arg>
-      </group>
-      <group>
-	<arg>--interactive</arg>
-	<arg>--i</arg>
-      </group>
-      <group>
-	<arg>--overview</arg>
-	<arg>-o</arg>
-      </group>
-      <group>
-	<arg>--dict=<replaceable>file</replaceable></arg>
-	<arg>-e <replaceable>file</replaceable></arg>
-      </group>
+      <arg><replaceable>OPTION</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
@@ -77,7 +63,7 @@
         </term>
 	<listitem>
 	  <simpara>
-            interactive mode, iterate though the spelling errors using
+            interactive mode, iterate through the spelling errors using
             a text mode interface; see the Interactive Mode section
           </simpara>
 	</listitem>
@@ -99,7 +85,8 @@
         </term>
 	<listitem>
 	  <simpara>
-            load a file with a list of words to consider correct
+            load a file with a list of words to consider correct;
+            can be used multiple times
           </simpara>
 	</listitem>
       </varlistentry>
@@ -108,7 +95,16 @@
 
   <refsect1 id="interactive">
     <title>Interactive Mode</title>
-    <para>TODO</para>
+    <para>
+      In interactive mode you iterate through each of the errors found.
+      In each prompt you can press <keycap>a</keycap> to add the word
+      to a file's <varname>X-POFile-SpellExtra</varname> entry,
+      <keycap>n</keycap> to ignore
+      all further errors from this file, <keycap>Enter</keycap> to ignore
+      this error or, if you are using one or more dictionary files, the
+      number of the file (<keycap>1</keycap>, <keycap>2</keycap>, ...) to
+      add the word to that dictionary file.
+    </para>
   </refsect1>
 
   <refsect1 id="headerdirectives">
@@ -116,7 +112,7 @@
     <para>
       <application>POFileSpell</application> recognizes one PO file
       header directive. As with all gettext lint tools, this directive
-      is prefixed with X-POFile.
+      is prefixed with <varname>X-POFile</varname>.
     </para>
     <variablelist>
       <varlistentry>
@@ -134,7 +130,13 @@
 
   <refsect1 id="consistencyfile">
     <title>Dictionary File Format</title>
-    <para>TODO</para>
+    <para>
+      Dictionary files are just lists of words, one on each line. For example:
+    </para>
+    <programlisting>word 1
+word 2
+...
+word n</programlisting>
   </refsect1>
 
   <refsect1 id="moreinfo">

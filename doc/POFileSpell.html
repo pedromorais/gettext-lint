@@ -1,0 +1,45 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileSpell</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2808767"></a><div class="titlepage"><div></div><div></div></div><div class="refnamediv"><h2>Name</h2><p>POFileSpell &#8212; checks the spelling in a collection of PO files</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><tt class="command">POFileSpell</tt>  [<i class="replaceable"><tt>OPTION</tt></i>] [<i class="replaceable"><tt>...</tt></i>] [<i class="replaceable"><tt>FILE</tt></i>] [<i class="replaceable"><tt>...</tt></i>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
+      <span class="application">POFileSpell</span>
+      checks the spelling in a collection of PO files.
+    </p></div><div class="refsect1" lang="en"><a name="options"></a><h2>Command Line Options</h2><div class="variablelist"><dl><dt><span class="term">
+          <tt class="option">--help</tt> or <tt class="option">-h</tt>
+        </span></dt><dd>
+            show usage instructions
+          </dd><dt><span class="term">
+          <tt class="option">--interactive</tt> or <tt class="option">-i</tt>
+        </span></dt><dd>
+            interactive mode, iterate through the spelling errors using
+            a text mode interface; see the Interactive Mode section
+          </dd><dt><span class="term">
+          <tt class="option">--overview</tt> or <tt class="option">-o</tt>
+        </span></dt><dd>
+            generate an overview file, grouping by error and not by file
+          </dd><dt><span class="term">
+          <tt class="option">--dict=</tt><i class="replaceable"><tt>file</tt></i> or
+          <tt class="option">-d </tt><i class="replaceable"><tt>file</tt></i>
+        </span></dt><dd>
+            load a file with a list of words to consider correct;
+            can be used multiple times
+          </dd></dl></div></div><div class="refsect1" lang="en"><a name="interactive"></a><h2>Interactive Mode</h2><p>
+      In interactive mode you iterate through each of the errors found.
+      In each prompt you can press <span><b class="keycap">a</b></span> to add the word
+      to a file's <tt class="varname">X-POFile-SpellExtra</tt> entry,
+      <span><b class="keycap">n</b></span> to ignore
+      all further errors from this file, <span><b class="keycap">Enter</b></span> to ignore
+      this error or, if you are using one or more dictionary files, the
+      number of the file (<span><b class="keycap">1</b></span>, <span><b class="keycap">2</b></span>, ...) to
+      add the word to that dictionary file.
+    </p></div><div class="refsect1" lang="en"><a name="headerdirectives"></a><h2>PO File Header Directives</h2><p>
+      <span class="application">POFileSpell</span> recognizes one PO file
+      header directive. As with all gettext lint tools, this directive
+      is prefixed with <tt class="varname">X-POFile</tt>.
+    </p><div class="variablelist"><dl><dt><span class="term">
+          X-POFile-SpellExtra: <i class="replaceable"><tt>word</tt></i>
+        </span></dt><dd>
+            adds the word to the file's list of accepted words
+          </dd></dl></div></div><div class="refsect1" lang="en"><a name="consistencyfile"></a><h2>Dictionary File Format</h2><p>
+      Dictionary files are just lists of words, one on each line. For example:
+    </p><pre class="programlisting">word 1
+word 2
+...
+word n</pre></div><div class="refsect1" lang="en"><a name="moreinfo"></a><h2>More Information</h2><p>gettext-lint web page: http://gettext-lint.sourceforge.net/</p></div></div></body></html>
