@@ -15,6 +15,5 @@ src/POFileFill
 src/POFileSpell
 src/POFileStatus
 src/POFileConsistencyShell
-src/POFileSpellShell
 src/POTFileChecker
 ], [chmod +x $(ls src/PO*.in | sed s/.in//g)])

@@ -15,17 +15,17 @@ test2:
 spell1:
 	@mkdir -p tmp
 	@cp spell1.po spell1.dict tmp
-	python ../POFileSpellShell.in --dict=tmp/spell1.dict tmp/spell1.po
+	python ../POFileSpell.in -i --dict=tmp/spell1.dict tmp/spell1.po
 
 spell2:
 	@mkdir -p tmp
 	@cp spell2.po tmp
-	python ../POFileSpellShell.in tmp/spell2.po
+	python ../POFileSpell.in -i tmp/spell2.po
 
 spell3:
 	@mkdir -p tmp
 	@cp spell3.po tmp
-	python ../POFileSpellShell.in tmp/spell3.po
+	python ../POFileSpell.in -i tmp/spell3.po
 
 check1:
 	@mkdir -p tmp

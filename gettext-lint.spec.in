@@ -40,7 +40,6 @@ An experimental glossary building tool is also included.
 %{_bindir}/POFileStatus
 %{_bindir}/POTFileChecker
 %{_bindir}/POFileConsistencyShell
-%{_bindir}/POFileSpellShell
 %{_mandir}/man1/POFileChecker.1*
 %{_mandir}/man1/POFileConsistency.1*
 %{_mandir}/man1/POTFileChecker.1*

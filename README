@@ -25,6 +25,5 @@ to reference in the resulting HTML. For example:
 
 POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc --param css "'/usr/share/gettext-lint/report.css'" /usr/share/gettext-lint/report.xsl - > report.html
 
-The package also includes some interactive (text mode) tools:
-POFileConsistencyShell - consistency checker
-POFileSpellShell - spell checker
+You can also run POFileSpell and POFileConsistency in interactive mode,
+following a series of prompts. The -i option chooses this mode.
