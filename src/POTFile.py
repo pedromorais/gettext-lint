@@ -21,4 +21,4 @@ class POTFile(POFile.POFile):
             req = capitalization.requiredCapitalization(i)
             cap = capitalization.capitalization(i)
             if req != capitalization.CAP_UNKNOWN and req != cap:
-                self.errors.append((l, 'wrong capitalization - %s' % i))
+                self.errors.append((l, m, 'wrong capitalization - %s' % i))

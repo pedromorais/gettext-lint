@@ -41,7 +41,8 @@ for filename in args:
         pot.check()
         if len(pot.errors) > 0:
             out.opentag('file', {'name': filename})
-            for l, e in pot.errors:
-                out.opentag('error', {'line': str(l)}, body = e, close = 1)
+            for l, m, e in pot.errors:
+                out.opentag('error', {'line': str(l), 'message': str(m)},
+                            body = e, close = 1)
             out.closetag()
 out.finish()            
