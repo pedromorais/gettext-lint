@@ -399,7 +399,7 @@ class POFile:
     def getCleanMsgstr(self):
         s = self.getMsgstr()
         space = ('\\n', '\\t')
-        empty = ('&',)
+        empty = ('&', '_')
         import re
         s = re.sub('&[^;]*;', ' ', s)
         s = re.sub('<[^>]*>', ' ', s)
