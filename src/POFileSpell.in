@@ -104,7 +104,8 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                         print '  message %d, line %d: %s' % (
                             message, line, context)
                     print 'a - add to current file (%s)' % filename
-                    print 'r - replace in current file with another word'
+                    if len(ctxs):
+                        print 'r - replace in current file with another word'
                     d = 1
                     for dictfile in dictfiles:
                         print '%d - add to dictionary %s' % (d, dictfile)
@@ -148,7 +149,7 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                             print 'added word to file %s' % filename
                         else:
                             print 'error adding word to file %s' % filename
-                    elif x == 'r':
+                    elif len(ctxs) and x == 'r':
                         replace = raw_input('Enter replacement word: ')
                         for line, message, context in ctxs:
                             podata = po.data[message - 1]
