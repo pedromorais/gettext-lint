@@ -1,6 +1,0 @@
-msgid "test1"
-msgstr ""
-
-# some comment
-msgid "test2"
-msgstr "teste2"
