@@ -5,7 +5,6 @@ bin_SCRIPTS = \
         POFileFill \
 	POFileSpell \
 	POFileStatus \
-	POFileReplace \
 	POFileConsistencyShell \
 	POFileSpellShell \
 	POTFileChecker

@@ -38,7 +38,6 @@ An experimental glossary building tool is also included.
 %{_bindir}/POFileFill
 %{_bindir}/POFileSpell
 %{_bindir}/POFileStatus
-%{_bindir}/POFileReplace
 %{_bindir}/POTFileChecker
 %{_bindir}/POFileConsistencyShell
 %{_bindir}/POFileSpellShell
