@@ -19,9 +19,6 @@ def usage(code = -1):
     w = sys.stderr.write
     w('Usage: POFileChecker [OPTION] <FILE>...\n')
     w('\n')
-    w('Mandatory arguments to long options are mandatory '
-      'for short options too.\n')
-    w('\n')
     w('Options:\n')
     w('  -h, --help                 show this help\n')
     w('  -i, --ignore-fuzzy         don\'t check fuzzy translations\n')
