@@ -4,8 +4,8 @@ Version: @VERSION@
 Release: 1
 Vendor: Pedro Morais
 License: GPL
-URL: http://mega.ist.utl.pt/~pmmm/gettext-lint
-Source: http://mega.ist.utl.pt/~pmmm/gettext-lint/download/gettext-lint-%{version}.tar.gz
+URL: http://gettext-lint.sourceforge.net/
+Source: http://dl.sourceforge.net/gettext-lint/gettext-lint-{%version}.tar.gz
 Group: Development/Tools
 Packager: Pedro Morais <morais@kde.org>
 Requires: python >= 2.0 gettext
@@ -13,8 +13,8 @@ BuildArchitectures: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
-The gettext lint tools are a collection of tools for checking the validity
-and consistency of PO and POT files.
+The gettext lint tools are a collection of tools for checking the validity,
+consistency and spelling of PO and POT files.
 An experimental glossary building tool is also included.
 
 %prep
