@@ -27,7 +27,7 @@ def usage(code = -1):
     w('  -a, --show-all             show all files, even if 100% translated\n')
     w('  -b, --break-path           add file path components to XML output\n')
     w('  -p, --pot-dir=<dir>        pot file dir, checks obsolete/untranslated files\n')
-    w('  -x, --pot-exclude=<pats>   exclude pot files that match this pattern\n')
+    w('  -x, --pot-exclude=<pat>    exclude pot files that match this pattern\n')
     sys.exit(code)
 
 try:
