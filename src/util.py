@@ -10,9 +10,6 @@ class Output:
         self.current = []
         self.output = output
 
-    def writetag(self, tag, attributes):
-        opentag(self, tag, attributes, 1)
-
     def opentag(self, tag, attributes = None, body = None, close = 0):
         if not self.rootwritten:
             self.output.write('<%s>\n' % self.roottag)
