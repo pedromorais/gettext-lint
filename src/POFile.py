@@ -31,6 +31,7 @@ class POFile:
         self.enableCheckLineLength = 0
         self.ignoreFuzzy = 0
         self.spellExtra = []
+        self.spellCommand = 'aspell --encoding=UTF-8 -l'
 
     def getRatio(self):
         if self.translated == None: return None   
@@ -239,7 +240,7 @@ class POFile:
     def spell(self, dict = {}):
         from popen2 import popen4
         from threading import Thread
-        child_out, child_in = popen4('aspell --encoding=UTF-8 -l')
+        child_out, child_in = popen4(self.spellCommand)
         read_lines_thread = Thread(target=self.__read_lines_thread,
                                    args=(child_out,));
         read_lines_thread.start()
