@@ -1,6 +1,6 @@
-* Version 0.x.x (xxxx-xx-xx):
-- Add replace command in POFileSpell interactive mode
-- Merge POTFileChecker into POFileChecker (run with --pot)
+* Version 0.3.1 (2005-02-10):
+- add replace command in POFileSpell interactive mode
+- merge POTFileChecker into POFileChecker (run with --pot)
 
 * Version 0.3.0 (2004-11-25):
 - convert argument parsing to getopt, should be much more flexible now
