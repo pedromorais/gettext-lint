@@ -8,6 +8,7 @@
 # (c) Copyright 2003, 2004
 # Distributable under the terms of the GPL - see COPYING
 
+import string
 import capitalization
 
 class POFile:
@@ -368,19 +369,19 @@ class POFile:
             if i != "": msgstr = msgstr + s + '\n'
         return msgstr
 
-    def searchInText(self, textToFind, textToSearch, context, index):
-        x = textToSearch.find(textToFind, index)
+    def searchWordInText(self, wordToFind, textToSearch, context, index):
+        x = textToSearch.find(wordToFind, index)
         if x < 0: return (x, None)
-        ea = '...'
-        eb = '...'
-        xa = x - context
-        if xa < 0:
-            xa = 0
-            ea = ''
-        xb = x + len(textToFind) + context
-        if xb > len(textToSearch):
-            xb = len(textToSearch)
-            eb = ''
+        lwf = len(wordToFind)
+        lts = len(textToSearch)
+        if x > 0 and textToSearch[x - 1] in string.letters:
+            return (x, None)
+        if x < lts - lwf + 1 and textToSearch[x + lwf] in string.letters:
+            return (x, None)
+        xa, ea = x - context, '...'
+        if xa < 0: xa, ea = 0, ''
+        xb, eb = x + lwf + context, '...'
+        if xb > lts: xb, eb = lts, ''
         return (x, ea + textToSearch[xa:xb] + eb)
 
     def searchInMsgstr(self, text, context = 10):
@@ -389,9 +390,10 @@ class POFile:
             if i != "":
                 index = -1
                 while 1:
-                    index, ctx = self.searchInText(text, s, context, index + 1)
-                    if ctx == None: break
-                    r.append((l, m, ctx))
+                    index, ctx = self.searchWordInText(text, s,
+                                                       context, index + 1)
+                    if index < 0: break
+                    if ctx != None: r.append((l, m, ctx))
         return r
 
     def getCleanMsgstr(self):
