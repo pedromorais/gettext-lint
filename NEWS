@@ -1,0 +1,15 @@
+* Version 0.2.0 (2004-11-??):
+- add POFileFill, a tool to translate a file based on existing translations.
+- add POFileSpell, a tool to spell check files.
+- add POFileSpellCheck, related to POFileSpell as POFileConsistencyShell is
+  to POFileConsistency.
+
+* Version 0.1.2 (2004-02-03):
+- fix installs with prefix different than /usr.
+
+* Version 0.1.1 (2004-02-02):
+- add POFileConsistencyShell, an interactive tool that makes
+  fixing inconsistencies really easy.
+
+* Version 0.1.0 (2004-01-24): 
+- initial release.
