@@ -101,6 +101,7 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                     print 'Error: %s' % e
                     print 'a - add to current file (%s)' % filename
     #                print 'r - replace in current file with another word'
+                    print 'p - print contexts in which the error occurs'
                     d = 1
                     for dictfile in dictfiles:
                         print '%d - add to dictionary %s' % (d, dictfile)
@@ -109,6 +110,13 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                     x = raw_input('Enter your choice, enter to continue: ')
                     if x == 'n':
                         break
+                    elif x == 'p':
+                        ctxs = po.searchInMsgstr(e)
+                        pi = 1
+                        for line, message, context in ctxs:
+                            print '%d: message %d, line %d: %s' % (
+                                pi, message, line, context)
+                            pi = pi + 1
                     elif x == 'a':
                         header = po.data[0][3]
                         headerlines = header.split('\\n')
