@@ -12,7 +12,7 @@ import sys
 import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
-from POTFile import POTFile
+from POFile import POTFile
 from util import Output
 
 def usage(code = -1):

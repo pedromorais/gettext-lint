@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# PO file class
+# PO file classes
 #
 # Pedro Morais <morais@kde.org>
 # José Nuno Pires <jncp@netcabo.pt>
@@ -428,3 +428,19 @@ class POFile:
 
     def hasErrors(self):
         return len(self.errors) > 0
+
+
+
+class POTFile(POFile):
+
+    def __init__(self, filename):
+        POFile.__init__(self, filename)
+    
+    def check(self):
+        self.errors = []
+        for l, m, i, s, fuzzy in self.data:
+            if len(i) == 0: continue
+            req = capitalization.requiredCapitalization(i)
+            cap = capitalization.capitalization(i)
+            if req != capitalization.CAP_UNKNOWN and req != cap:
+                self.errors.append((l, m, 'wrong capitalization - %s' % i))
