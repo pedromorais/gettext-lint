@@ -280,8 +280,13 @@
 </xsl:template>
 
 <xsl:template match="msgstr">
-  <td><xsl:value-of select="filename"/></td>
+  <td><xsl:apply-templates select="filename"/></td>
   <td><xsl:value-of select="content"/></td>
+</xsl:template>
+
+<xsl:template match="filename">
+  <xsl:value-of select="current()"/>
+  <xsl:if test="position()!=last()"><br/></xsl:if>
 </xsl:template>
 
 
