@@ -23,7 +23,7 @@ POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc /usr/share/gette
 The included XSL can receive the parameter 'css' with the name of a stylesheet
 to reference in the resulting HTML. For example:
 
-POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc --param css "'/usr/share/gettext-lint/report.css'" /usr/share/gettext-lint/report.xsl - > report.html
+POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc -param css "'/usr/share/gettext-lint/report.css'" /usr/share/gettext-lint/report.xsl - > report.html
 
 You can also run POFileSpell and POFileConsistency in interactive mode,
 following a series of prompts. The -i option chooses this mode.
