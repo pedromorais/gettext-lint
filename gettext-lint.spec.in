@@ -5,7 +5,7 @@ Release: 1
 Vendor: Pedro Morais
 License: GPL
 URL: http://gettext-lint.sourceforge.net/
-Source: http://dl.sourceforge.net/gettext-lint/gettext-lint-{%version}.tar.gz
+Source: http://dl.sourceforge.net/gettext-lint/gettext-lint-%version.tar.gz
 Group: Development/Tools
 Packager: Pedro Morais <morais@kde.org>
 Requires: python >= 2.0 gettext
@@ -42,5 +42,8 @@ An experimental glossary building tool is also included.
 %{_bindir}/POTFileChecker
 %{_bindir}/POFileConsistencyShell
 %{_bindir}/POFileSpellShell
+%{_mandir}/man1/POFileChecker.1*
+%{_mandir}/man1/POFileConsistency.1*
+%{_mandir}/man1/POTFileChecker.1*
 %{_datadir}/%{name}
 %doc COPYING README NEWS AUTHORS

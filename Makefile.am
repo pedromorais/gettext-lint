@@ -1,4 +1,4 @@
-SUBDIRS = src etc
+SUBDIRS = src etc doc
 
 EXTRA_DIST = $(PACKAGE).spec
 

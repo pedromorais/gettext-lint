@@ -6,6 +6,7 @@ AC_OUTPUT([
 Makefile
 gettext-lint.spec
 etc/Makefile
+doc/Makefile
 src/Makefile
 src/POFileChecker
 src/POFileConsistency
