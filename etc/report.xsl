@@ -224,8 +224,8 @@
   <xsl:if test="error">
     <table>
       <tr>
-	<td>error</td>
 	<td>number of files</td>
+	<td>error</td>
       </tr>
       <xsl:apply-templates select="error" mode="spell-overview">
          <xsl:sort select="@count" data-type="number" order="descending"/>
