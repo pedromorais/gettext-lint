@@ -41,6 +41,10 @@ An experimental glossary building tool is also included.
 %{_bindir}/POTFileChecker
 %{_mandir}/man1/POFileChecker.1*
 %{_mandir}/man1/POFileConsistency.1*
+%{_mandir}/man1/POFileEquiv.1*
+%{_mandir}/man1/POFileFill.1*
+%{_mandir}/man1/POFileSpell.1*
+%{_mandir}/man1/POFileStatus.1*
 %{_mandir}/man1/POTFileChecker.1*
 %{_datadir}/%{name}
 %doc COPYING README NEWS AUTHORS

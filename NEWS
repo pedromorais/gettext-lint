@@ -1,6 +1,6 @@
-* Version 0.x.x (2004-11-xx):
+* Version 0.3.0 (2004-11-25):
 - convert argument parsing to getopt, should be much more flexible now
-INPROGRESS add man pages
+- add man pages
 - add a default CSS for the reports, report.css
 - POFileSpellShell replaced by POFileSpell -i option
 - POFileConsistencyShell replaced by POFileConsistency -i option
