@@ -51,6 +51,10 @@ generate an overview file, grouping by error and not by file
 \fB\-\-dict=\fR\fIfile\fR or \fB\-d \fR\fIfile\fR
 load a file with a list of words to consider correct; can be used multiple times
 
+.TP
+\fB\-\-command=\fR\fIcommand\fR
+the command used for actually spell checking the text, by default \fBaspell \-\-encoding=utf\-8 \-l\fR; if you want to use \fBispell\fR, try something like \fB\-\-comand="ispell \-l"\fR or \fB\-\-comand="iconv \-t iso\-8859\-1 | ispell \-l"\fR 
+
 .SH "INTERACTIVE MODE"
 
 .PP
