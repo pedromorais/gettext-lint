@@ -76,7 +76,7 @@
     </variablelist>
   </refsect1>
 
-  <refsect1 id="headeroptions">
+  <refsect1 id="headerdirectives">
     <title>PO File Header Directives</title>
     <para>
       <application>POFileChecker</application> recognizes several PO file
