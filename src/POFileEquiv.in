@@ -10,6 +10,7 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
+import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
 from POFile import POFile

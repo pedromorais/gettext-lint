@@ -10,18 +10,17 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
-from popen2 import popen4
-import string
+import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
 from POFile import POFile
 from util import Output
 
-def error():
+def usage():
     sys.stderr.write('Usage: POFileSpell [--dict=<dict file> ...] <file> [<file ...]\n')
     sys.exit(-1)
 
-if len(sys.argv) < 2: error()
+if len(sys.argv) < 2: usage()
 
 start = 1
 
@@ -29,7 +28,7 @@ overview = None
 if sys.argv[start][:10] == '--overview':
     overview = {}
     start = start + 1
-    if len(sys.argv) < start + 1: error()
+    if len(sys.argv) < start + 1: usage()
 
 dict = {}
 while sys.argv[start][:7] == '--dict=':
@@ -40,7 +39,7 @@ while sys.argv[start][:7] == '--dict=':
         word = word[:-1]
         dict[word] = word
     start = start + 1
-    if len(sys.argv) < start + 1: error()
+    if len(sys.argv) < start + 1: usage()
 
 tagname = "po-file-spell"
 if overview != None: tagname = "po-file-spell-overview"
