@@ -90,6 +90,20 @@
           </simpara>
 	</listitem>
       </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--command=</option><replaceable>command</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            the command used for actually spell checking the text, by default
+            <command>aspell --encoding=utf-8 -l</command>; if you want to
+            use <command>ispell</command>, try something like
+            <option>--comand="ispell -l"</option> or 
+            <option>--comand="iconv -t iso-8859-1 | ispell -l"</option>
+          </simpara>
+	</listitem>
+      </varlistentry>
     </variablelist>
   </refsect1>
 
