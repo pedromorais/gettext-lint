@@ -1,5 +1,6 @@
 <po-file-checker>
   <file name="check1.po" allow="0">
     <error line="11" message="2">missing ...</error>
+    <error line="14" message="3">missing .</error>
   </file>
 </po-file-checker>

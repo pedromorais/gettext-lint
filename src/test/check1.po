@@ -10,3 +10,13 @@ msgstr ""
 
 msgid "test1..."
 msgstr "teste"
+
+msgid "test1."
+msgstr "teste1"
+
+msgid "test2..."
+msgstr "teste2..."
+
+msgid "test2."
+msgstr "teste2."
+
