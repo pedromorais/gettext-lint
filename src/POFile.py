@@ -376,7 +376,7 @@ class POFile:
         lts = len(textToSearch)
         if x > 0 and textToSearch[x - 1] in string.letters:
             return (x, None)
-        if x < lts - lwf + 1 and textToSearch[x + lwf] in string.letters:
+        if x < lts - lwf - 1 and textToSearch[x + lwf] in string.letters:
             return (x, None)
         xa, ea = x - context, '...'
         if xa < 0: xa, ea = 0, ''
