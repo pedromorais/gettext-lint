@@ -368,6 +368,32 @@ class POFile:
             if i != "": msgstr = msgstr + s + '\n'
         return msgstr
 
+    def searchInText(self, textToFind, textToSearch, context, index):
+        x = textToSearch.find(textToFind, index)
+        if x < 0: return (x, None)
+        ea = '...'
+        eb = '...'
+        xa = x - context
+        if xa < 0:
+            xa = 0
+            ea = ''
+        xb = x + len(textToFind) + context
+        if xb > len(textToSearch):
+            xb = len(textToSearch)
+            eb = ''
+        return (x, ea + textToSearch[xa:xb] + eb)
+
+    def searchInMsgstr(self, text, context = 10):
+        r = []
+        for l, m, i, s, fuzzy in self.data:
+            if i != "":
+                index = -1
+                while 1:
+                    index, ctx = self.searchInText(text, s, context, index + 1)
+                    if ctx == None: break
+                    r.append((l, m, ctx))
+        return r
+
     def getCleanMsgstr(self):
         s = self.getMsgstr()
         space = ('\\n', '\\t')
