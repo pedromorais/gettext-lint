@@ -16,40 +16,53 @@ if not "@prefix@/share/@PACKAGE@" in sys.path:
 from POFile import POFile
 from util import Output
 
-def usage():
-    sys.stderr.write('Usage: POFileSpell [--dict=<dict file> ...] <file> [<file ...]\n')
-    sys.exit(-1)
+def usage(code = -1):
+    w = sys.stderr.write
+    w('Usage: POFileSpell [OPTION] <FILE>...\n')
+    w('\n')
+    w('Mandatory arguments to long options are mandatory '
+      'for short options too.\n')
+    w('\n')
+    w('Options:\n')
+    w('  -h, --help                 show this help\n')
+    w('  -o, --overview             generate an overview file\n')
+    w('  -d, --dict=<file>          load a extra dictionary file\n')
+    w('      --command=<command>    command used for spellchecking\n')
+    w('                             (default: "aspell --encoding=UTF-8 -l")\n')
+    sys.exit(code)
 
-if len(sys.argv) < 2: usage()
-
-start = 1
-
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "hod:",
+                               ["help", "overview", "dict=", "command="])
+except getopt.GetoptError:
+    usage()
 overview = None
-if sys.argv[start][:10] == '--overview':
-    overview = {}
-    start = start + 1
-    if len(sys.argv) < start + 1: usage()
-
 dict = {}
-while sys.argv[start][:7] == '--dict=':
-    import os
-    fn = os.path.expandvars(os.path.expanduser(sys.argv[start][7:]))
-    words = open(fn).readlines()
-    for word in words:
-        word = word[:-1]
-        dict[word] = word
-    start = start + 1
-    if len(sys.argv) < start + 1: usage()
+spellCommand = None
+for o, a in opts:
+    if o in ("-h", "--help"): usage(0)
+    if o in ("-o", "--overview"): overview = {}
+    if o in ("-d", "--dict"):
+        import os
+        fn = os.path.expandvars(os.path.expanduser(a))
+        words = open(fn).readlines()
+        for word in words:
+            word = word[:-1]
+            dict[word] = word
+    if o in ("--command",):            
+        spellCommand = a
+if len(args) < 1: usage()
 
 tagname = "po-file-spell"
 if overview != None: tagname = "po-file-spell-overview"
 out = Output(tagname)
-for filename in sys.argv[start:]:
+for filename in args:
     po = POFile(filename)
     if po.parse() == 0:
         sys.stderr.write('error parsing file %s\n' % filename)
     else:
         po.parseHeader()
+        if spellCommand: po.spellCommand = spellCommand
         po.spell(dict)
         if len(po.spellErrors) > 0:
             if overview != None:
