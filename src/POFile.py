@@ -334,7 +334,7 @@ class POFile:
             self.errors.append((pos, msg, 'missing : '))
         if len(i) > 2 and len(s) > 2 and i[-3:] == "..." and s[-3:] != "...":
             self.errors.append((pos, msg, 'missing ...'))
-        if i[-1] == '.' and s[-1] != '.':
+        elif i[-1] == '.' and s[-1] != '.':
             self.errors.append((pos, msg, 'missing .'))
 
     def checkLineLength(self, line, pos, msg, limit, single_lines):
