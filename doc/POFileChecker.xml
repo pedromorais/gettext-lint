@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]>
+
+<refentry>
+  <refentryinfo>
+    <title>POFileChecker Manual</title>
+    <copyright>
+      <year>2004</year>
+    </copyright>
+    <author>
+      <firstname>Pedro</firstname>
+      <surname>Morais</surname>
+    </author>
+    <address><email>morais@kde.org</email></address>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>POFileChecker</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>POFileChecker</refname>
+    <refpurpose>searches for common mistakes in PO files</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>POFileChecker</command>
+      <group>
+	<arg>--ignore-fuzzy</arg>
+      </group>
+      <arg><replaceable>file1</replaceable></arg>
+      <arg><replaceable>file2</replaceable></arg>
+      <arg><replaceable>....</replaceable></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="introduction">
+    <title>Introduction</title>
+    <para>
+      <application>POFileChecker</application>
+      searches for common mistakes in PO files.
+    </para>
+  </refsect1>
+
+  <refsect1 id="options">
+    <title>Command Line Options</title>    
+    <variablelist>
+      <varlistentry>
+	<term>
+          <option>--ignore-fuzzy</option>
+        </term>
+	<listitem>
+	  <simpara>
+            don't check validity of fuzzy entries
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="moreinfo">
+    <title>More Information</title>
+    <para>gettext-lint web page: http://gettext-lint.sourceforge.net/</para>
+  </refsect1>
+</refentry>
