@@ -5,7 +5,6 @@ bin_SCRIPTS = \
         POFileFill \
 	POFileSpell \
 	POFileStatus \
-	POFileConsistencyShell \
 	POTFileChecker
 
 EXTRA_DIST = *.py PO*.in

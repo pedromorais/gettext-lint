@@ -25,6 +25,7 @@ def usage(code = -1):
     w('\n')
     w('Options:\n')
     w('  -h, --help                 show this help\n')
+    w('  -i, --interactive          interactive console mode\n')
     w('  -e, --equivalent=<file>    load an equivalences file\n')
     w('  -o, --only-empty           only check empty msgstrs\n')
     w('  -m, --match=<file>         only check files matching this name\n')
@@ -32,17 +33,19 @@ def usage(code = -1):
     sys.exit(code)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hoe:m:r:",
-                               ["help", "only-empty", "equivalent=",
-                                "match=", "strip-chars="])
+    opts, args = getopt.getopt(sys.argv[1:], "hioe:m:r:",
+                               ["help", "interactive", "only-empty",
+                                "equivalent=", "match=", "strip-chars="])
 except getopt.GetoptError:
     usage()
+interactive = 0
 equivalent = None
 onlyempty = 0
 match = None
 strip = ''
 for o, a in opts:
     if o in ("-h", "--help"): usage(0)
+    if o in ("-i", "--interactive"): interactive = 1
     if o in ("-o", "--only-empty"): onlyempty = 1
     if o in ("-e", "--equivalent"):
         import os
@@ -60,7 +63,7 @@ for filename in args:
     if po.consistency(map, strip) == 0:
         sys.stderr.write('error parsing file %s\n' % filename)
 
-def inconsistent(msgid, result):
+def inconsistent(msgid, result, equivalent):
     if len(result) < 2: return 0
     if equivalent != None and equivalent.check(msgid, result): return 0
     if onlyempty:
@@ -75,18 +78,93 @@ def inconsistent(msgid, result):
                 if filename.find(match) >= 0: ccc = 1
         if ccc == 0: return 0
     return 1
-                        
-out = Output("po-file-consistency")
-for msgid, result in map.iteritems():
-    if not inconsistent(msgid, result): continue
-    out.opentag('inconsistency')
-    out.opentag('msgid', body = msgid, close = 1)
-    for msgstr, filenames in result.iteritems():
-        out.opentag('msgstr')
-        out.opentag('content', body = msgstr, close = 1)
-        for fx, message in filenames:
-            out.opentag('filename', { 'message': str(message) },
-                        body = fx, close = 1)
+
+def consistency(map, equivalent):
+    out = Output("po-file-consistency")
+    for msgid, result in map.iteritems():
+        if not inconsistent(msgid, result, equivalent): continue
+        out.opentag('inconsistency')
+        out.opentag('msgid', body = msgid, close = 1)
+        for msgstr, filenames in result.iteritems():
+            out.opentag('msgstr')
+            out.opentag('content', body = msgstr, close = 1)
+            for fx, message in filenames:
+                out.opentag('filename', { 'message': str(message) },
+                            body = fx, close = 1)
+            out.closetag()
         out.closetag()
-    out.closetag()
-out.finish()
+    out.finish()
+
+def interactiveConsistency(map, equivalent):
+    current = 0
+    total = 0
+    for msgid, result in map.iteritems():
+        if inconsistent(msgid, result, equivalent): total = total + 1
+
+    for msgid, result in map.iteritems():
+        if not inconsistent(msgid, result, equivalent): continue
+        current = current + 1
+        print '*** msgid (%d/%d):\n%s' % (current, total, msgid)
+        print
+        c = 0
+        for msgstr, filenames in result.iteritems():
+            c = c + 1
+            print '*** msgstr %d in' % c,
+            for fx, message in filenames: print fx,
+            print ':'
+            print msgstr
+        print
+        addtofilemessage = ''
+        if equivalent != None: addtofilemessage = "'a' to add to ignore list, "
+        x = raw_input('1 - %d to fix consistency, 0 to input text, '
+                      '%sother to continue: ' % (c, addtofilemessage))
+        if equivalent and x == 'a':
+            print '+++ Adding to file %s' % equivalent.filename
+            print '+++'
+            efile = open(equivalent.filename, 'a')
+            print '+++ %s' % msgid
+            efile.write('\n')
+            efile.write('%s\n' % msgid)
+            for msgstr, filenames in result.iteritems():
+                print '+++ %s' % msgstr
+                efile.write('%s\n' % msgstr)
+            print
+            efile.close()
+            continue
+        n = -1
+        try:
+            n = int(x)
+        except:
+            pass
+        if n >= 0 and n <= c:
+            newmsgstr = None
+            if n == 0:
+                newmsgstr = raw_input('Enter new message: ')
+            else:
+                c = 0
+                for msgstr, filenames in result.iteritems():
+                    c = c + 1
+                if c == n:
+                    newmsgstr = msgstr
+                    break
+            c = 0
+            for msgstr, filenames in result.iteritems():
+                c = c + 1
+                if c != n:
+                    for fx, message in filenames:
+                        print '+++ Fix consistency in %s,%d,%s' % (
+                            fx, message, newmsgstr)
+                        po = POFile(fx)
+                        po.parse()
+                        po.parseHeader()
+                        lines = po.prepare_replace(message)
+                        if lines != None:
+                            file = open(fx, 'w')
+                            po.execute_replace(lines, newmsgstr, 1, file)
+                            file.close()
+        print
+
+if interactive:
+    interactiveConsistency(map, equivalent)
+else:
+    consistency(map, equivalent)

@@ -3,7 +3,6 @@ Makefile.in
 *.pyc
 POFileChecker
 POFileConsistency
-POFileConsistencyShell
 POFileEquiv
 POFileFill
 POFileSpell
