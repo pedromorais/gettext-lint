@@ -144,9 +144,9 @@ def interactiveConsistency(map, equivalent):
                 c = 0
                 for msgstr, filenames in result.iteritems():
                     c = c + 1
-                if c == n:
-                    newmsgstr = msgstr
-                    break
+                    if c == n:
+                        newmsgstr = msgstr
+                        break
             c = 0
             for msgstr, filenames in result.iteritems():
                 c = c + 1
