@@ -9,21 +9,31 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
+import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
 from POTFile import POTFile
 from util import Output
 
-def error():
-    sys.stderr.write('Usage: POTFileChecker <file> [<file ...]\n')
-    sys.exit(-1)
+def usage(code = -1):
+    w = sys.stderr.write
+    w('Usage: POTFileChecker [OPTION] <FILE>...\n')
+    w('\n')
+    w('Options:\n')
+    w('  -h, --help                 show this help\n')
+    sys.exit(code)
 
-if len(sys.argv) < 2: error()
-
-start = 1
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "h", ["help",])
+except getopt.GetoptError:
+    usage()
+for o, a in opts:
+    if o in ("-h", "--help"):
+        usage(0)
+if len(args) < 1: usage()
 
 out = Output("pot-file-checker")
-for filename in sys.argv[start:]:
+for filename in args:
     pot = POTFile(filename)
     if pot.parse() == 0:
         sys.stderr.write('error parsing file %s\n' % filename)

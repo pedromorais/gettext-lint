@@ -9,42 +9,49 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
+import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
 from POFile import POFile
 from Equivalent import Equivalent
 
-def error():
-    sys.stderr.write('Usage: POFileConsistencyShell [--equivalent=<file>] [--only-empty] [--match=<string>] <file> [<file ...]\n')
-    sys.exit(-1)
+def usage(code = -1):
+    w = sys.stderr.write
+    w('Usage: POFileConsistencyShell [OPTION] <FILE>...\n')
+    w('\n')
+    w('Mandatory arguments to long options are mandatory '
+      'for short options too.\n')
+    w('\n')
+    w('Options:\n')
+    w('  -h, --help                 show this help\n')
+    w('  -e, --equivalent=<file>    load an equivalences file\n')
+    w('  -o, --only-empty           only check empty msgstrs\n')
+    w('  -m, --match=<file>         only check files matching this name\n')
+    sys.exit(code)
 
-if len(sys.argv) < 2: error()
-
-start = 1
-
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "hoe:m:r:",
+                               ["help", "only-empty", "equivalent=",
+                                "match=", "strip-chars="])
+except getopt.GetoptError:
+    usage()
 equivalent = None
-if sys.argv[start][:13] == '--equivalent=':
-    import os
-    fn = os.path.expandvars(os.path.expanduser(sys.argv[start][13:]))
-    equivalent = Equivalent(fn)
-    equivalent.parse()
-    start = start + 1
-    if len(sys.argv) < start + 1: error()
-
 onlyempty = 0
-if sys.argv[start][:12] == '--only-empty':
-    onlyempty = 1
-    start = start + 1
-    if len(sys.argv) < start + 1: error()
-
 match = None
-if sys.argv[start][:8] == '--match=':
-    match = sys.argv[start][8:]
-    start = start + 1
-    if len(sys.argv) < start + 1: error()
+strip = ''
+for o, a in opts:
+    if o in ("-h", "--help"): usage(0)
+    if o in ("-o", "--only-empty"): onlyempty = 1
+    if o in ("-e", "--equivalent"):
+        import os
+        fn = os.path.expandvars(a)
+        equivalent = Equivalent(fn)
+        equivalent.parse()
+    if o in ("-m", "--match"): match = a
+if len(args) < 1: usage()
 
 map = {}
-for filename in sys.argv[start:]:
+for filename in args:
     po = POFile(filename)
     po.ignoreFuzzy = 1
     if po.consistency(map, '') == 0:
