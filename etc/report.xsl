@@ -117,6 +117,7 @@
     <table>
       <tr>
 	<td>file</td>
+	<td>message</td>
 	<td>line</td>
 	<td>problem</td>
       </tr>
@@ -143,6 +144,7 @@
     <table>
       <tr>
 	<td>file</td>
+	<td>message</td>
 	<td>line</td>
 	<td>problem</td>
       </tr>
@@ -167,6 +169,7 @@
 </xsl:template>
 
 <xsl:template match="error" mode="checker">
+  <td><xsl:value-of select="@message"/></td>
   <td><xsl:value-of select="@line"/></td>
   <td><xsl:value-of select="current()"/></td>
 </xsl:template>
