@@ -1,0 +1,103 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file status
+#
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import Output
+
+def error():
+    sys.stderr.write('Usage: POFileStatus [--show-all] [--break-path] [--pot-exclude=<patterns>] [--pot-dir=<dir>] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+def findfiles(dir, ext, exclude):
+    def walkfunc(arg, dirname, fnames):
+        dirname = dirname[len(os.path.commonprefix((dirname, arg[2]))):]
+        for i in fnames:
+            if i.endswith(arg[1]):
+                name = dirname + '/' + i
+                for j in exclude:
+                    if name.find(j) >= 0:
+                        name = None
+                        continue
+                if name != None: arg[0][name] = name
+    import os
+    map = {}
+    if os.path.isdir(dir): os.path.walk(dir, walkfunc, (map, ext, dir))
+    return map
+
+def attrname(filename, breakpath, attr):
+    attr['name'] = filename
+    if breakpath:
+        cindex = 1
+        for component in filename.split('/'):
+            attr['name-%d' % cindex] = component
+            cindex = cindex + 1
+
+start = 1
+
+showall = 0
+if sys.argv[start][:10] == '--show-all':
+    showall = 1
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+breakpath = 0
+if sys.argv[start][:12] == '--break-path':
+    breakpath = 1
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+potexclude = []
+if sys.argv[start][:14] == '--pot-exclude=':
+    potexclude = sys.argv[start][14:].split(",")
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+potfiles = None
+if sys.argv[start][:10] == '--pot-dir=':
+    import os
+    potdir = os.path.expandvars(os.path.expanduser(sys.argv[start][10:]))
+    potfiles = findfiles(potdir, '.pot', potexclude)
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+out = Output("po-file-status")
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    if po.validate():
+        po.obsolete = 0
+        if potfiles:
+            if not potfiles.has_key(filename + 't'):
+                po.obsolete = 1
+            else:
+                del potfiles[filename + 't']
+        if showall or po.fuzzy or po.untranslated or po.obsolete:
+            attr = {}
+            attrname(filename, breakpath, attr)
+            if po.translated: attr['translated'] = str(po.translated)
+            if po.fuzzy: attr['fuzzy'] = str(po.fuzzy)
+            if po.untranslated: attr['untranslated'] = str(po.untranslated)
+            if po.obsolete: attr['obsolete'] = 'true'
+            out.opentag('file', attr, close = 1)
+    else:
+        out.opentag('file', { 'name': filename })
+        out.opentag('error', body = po.validateError, close = 1)
+        out.closetag()
+if potfiles:
+    for filename in potfiles.keys():
+        attr = {}
+        attrname(filename, breakpath, attr)
+        attr['not-found'] = 'true'
+        out.opentag('file', attr, close = 1)
+out.finish()

@@ -1,0 +1,40 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file msgstr replacement
+#
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+
+def error():
+    sys.stderr.write('Usage: POFileReplace [--remove-fuzzy] <file> <msgid index (>= 1)> <new msgstr>\n')
+    sys.exit(-1)
+
+start = 1
+
+if len(sys.argv) < start + 3: error()
+
+removeFuzzy = 0
+if sys.argv[start][:14] == '--remove-fuzzy':
+    removeFuzzy = 1
+    start = start + 1
+    if len(sys.argv) < start + 3: error()
+
+filename = sys.argv[start]
+try:
+    index = int(sys.argv[start + 1])
+except:
+    error()
+if index < 1: error()
+msgstr = sys.argv[start + 2]
+                  
+po = POFile(filename)
+if po.replace(index, msgstr, removeFuzzy, sys.stdout) == 0:
+    sys.stderr.write('error replacing msgstr in file %s\n' % filename)

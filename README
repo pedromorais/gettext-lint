@@ -1,0 +1,28 @@
+gettext lint tools
+
+Pedro Morais <morais@kde.org>
+José Nuno Pires <jncp@netcabo.pt>
+(c) Copyright 2003, 2004
+Distributable under the terms of the GPL - see COPYING
+
+This packages includes the following tools:
+POFileStatus - validator and status reporting
+POFileChecker - searches for common mistakes in PO files
+POTFileChecker - searches for common mistakes in POT files
+POFileConsistency - consistency checker
+POFileEquiv - glossary generator
+POFileSpell - spell checker
+POFileFill - fill a file with entries already translated in other files
+
+All the commands produce XML output; you can feed this output to report.xsl
+(probably located on /usr/share/gettext-lint/report.xsl) to generate
+HTML reports. For example:
+
+POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc /usr/share/gettext-lint/report.xsl - > report.html
+
+The included XSL can receive the parameter 'css' with the name of a stylesheet
+to reference in the resulting HTML.
+
+The package also includes some interactive (text mode) tools:
+POFileConsistencyShell - consistency checker
+POFileSpellShell - spell checker

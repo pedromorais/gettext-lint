@@ -1,0 +1,37 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# POT file checker
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POTFile import POTFile
+from util import Output
+
+def error():
+    sys.stderr.write('Usage: POTFileChecker <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+start = 1
+
+out = Output("pot-file-checker")
+for filename in sys.argv[start:]:
+    pot = POTFile(filename)
+    if pot.parse() == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+    else:
+        pot.check()
+        if len(pot.errors) > 0:
+            out.opentag('file', {'name': filename})
+            for l, e in pot.errors:
+                out.opentag('error', {'line': str(l)}, body = e, close = 1)
+            out.closetag()
+out.finish()            

@@ -1,0 +1,50 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file fill with existing translations
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+
+def error():
+    sys.stderr.write('Usage: POFileFill <target file> <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 3: error()
+
+map = None
+
+start = 1
+
+target = POFile(sys.argv[start])
+start = start + 1
+if target.parse() == 0:
+    sys.stderr.write('error parsing target file %s\n' % target.filename)
+    sys.exit(-2)
+
+map = {}
+for filename in sys.argv[start:]:
+    if filename != target.filename:
+        po = POFile(filename)
+        if po.consistency(map, '') == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+
+for i in target.data:
+    line, message, msgid, msgstr, fuzzy = i
+    if (len(msgstr) == 0 or fuzzy) and map.has_key(msgid):
+        results = map[msgid]
+        if len(results) == 1:
+            newmsgstr = results.keys()[0]
+            po = POFile(target.filename)
+            lines = po.prepare_replace(message)
+            if lines != None:
+                file = open(target.filename, 'w')
+                po.execute_replace(lines, newmsgstr, 1, file)
+                file.close()

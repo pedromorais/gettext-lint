@@ -1,0 +1,7 @@
+msgid "test1"
+msgstr ""
+
+# some comment
+#, fuzzy
+msgid "test2"
+msgstr "test fuzzy"

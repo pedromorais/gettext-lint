@@ -1,0 +1,134 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file consistency shell
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from Equivalent import Equivalent
+
+def error():
+    sys.stderr.write('Usage: POFileConsistencyShell [--equivalent=<file>] [--only-empty] [--match=<string>] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+start = 1
+
+equivalent = None
+if sys.argv[start][:13] == '--equivalent=':
+    import os
+    fn = os.path.expandvars(os.path.expanduser(sys.argv[start][13:]))
+    equivalent = Equivalent(fn)
+    equivalent.parse()
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+onlyempty = 0
+if sys.argv[start][:12] == '--only-empty':
+    onlyempty = 1
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+match = None
+if sys.argv[start][:8] == '--match=':
+    match = sys.argv[start][8:]
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+map = {}
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    po.ignoreFuzzy = 1
+    if po.consistency(map, '') == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+
+def inconsistent(msgid, result):
+    if len(result) < 2: return 0
+    if equivalent != None and equivalent.check(msgid, result): return 0
+    if onlyempty:
+        ccc = 0
+        for msgstr in result.keys():
+            if not msgstr or not len(msgstr): ccc = 1
+        if ccc == 0: return 0
+    if match:
+        ccc = 0
+        for filenames in result.values():
+            for filename, line in filenames:
+                if filename.find(match) >= 0: ccc = 1
+        if ccc == 0: return 0
+    return 1
+
+current = 0
+total = 0
+for msgid, result in map.iteritems():
+    if inconsistent(msgid, result): total = total + 1
+
+for msgid, result in map.iteritems():
+    if not inconsistent(msgid, result): continue
+    current = current + 1
+    print '*** msgid (%d/%d):\n%s' % (current, total, msgid)
+    print
+    c = 0
+    for msgstr, filenames in result.iteritems():
+        c = c + 1
+        print '*** msgstr %d in' % c,
+        for fx, message in filenames: print fx,
+        print ':'
+        print msgstr
+    print
+    addtofilemessage = ''
+    if equivalent != None: addtofilemessage = "'a' to add to ignore list, "
+    x = raw_input('1 - %d to fix consistency, 0 to input text, %sother to continue: ' % (c, addtofilemessage))
+    if equivalent and x == 'a':
+        print '+++ Adding to file %s' % equivalent.filename
+        print '+++'
+        efile = open(equivalent.filename, 'a')
+        print '+++ %s' % msgid
+        efile.write('\n')
+        efile.write('%s\n' % msgid)
+        for msgstr, filenames in result.iteritems():
+            print '+++ %s' % msgstr
+            efile.write('%s\n' % msgstr)
+        print
+        efile.close()
+        continue
+    n = -1
+    try:
+        n = int(x)
+    except:
+        pass
+    if n >= 0 and n <= c:
+        newmsgstr = None
+        if n == 0:
+            newmsgstr = raw_input('Enter new message: ')
+        else:
+            c = 0
+            for msgstr, filenames in result.iteritems():
+                c = c + 1
+                if c == n:
+                    newmsgstr = msgstr
+                    break
+        c = 0
+        for msgstr, filenames in result.iteritems():
+            c = c + 1
+            if c != n:
+                for fx, message in filenames:
+                    print '+++ Fix consistency in %s,%d,%s' % (
+                        fx, message, newmsgstr)
+                    po = POFile(fx)
+                    po.parse()
+                    po.parseHeader()
+                    lines = po.prepare_replace(message)
+                    if lines != None:
+                        file = open(fx, 'w')
+                        po.execute_replace(lines, newmsgstr, 1, file)
+                        file.close()
+    print

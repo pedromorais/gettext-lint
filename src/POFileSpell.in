@@ -1,0 +1,69 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file spell checker
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# João Neves <joao@silvanaves.org>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+from popen2 import popen4
+import string
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import Output
+
+def error():
+    sys.stderr.write('Usage: POFileSpell [--dict=<dict file> ...] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+start = 1
+
+overview = None
+if sys.argv[start][:10] == '--overview':
+    overview = {}
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+dict = {}
+while sys.argv[start][:7] == '--dict=':
+    import os
+    fn = os.path.expandvars(os.path.expanduser(sys.argv[start][7:]))
+    words = open(fn).readlines()
+    for word in words:
+        word = word[:-1]
+        dict[word] = word
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+tagname = "po-file-spell"
+if overview != None: tagname = "po-file-spell-overview"
+out = Output(tagname)
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    if po.parse() == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+    else:
+        po.parseHeader()
+        po.spell(dict)
+        if len(po.spellErrors) > 0:
+            if overview != None:
+                for e in po.spellErrors:
+                    ce = 0
+                    if overview.has_key(e): ce= overview[e]
+                    overview[e] = ce + 1
+            else:
+                out.opentag('file', {'name': filename})
+                for e in po.spellErrors:
+                    out.opentag('error', {}, body = e, close = 1)
+                out.closetag()
+if overview:
+    for i in overview.iteritems():
+        out.opentag('error', {'count': str(i[1])}, body = i[0], close = 1)
+out.finish()

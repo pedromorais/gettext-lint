@@ -1,0 +1,109 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file spell checker
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+from popen2 import popen4
+import string
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import Output
+
+def error():
+    sys.stderr.write('Usage: POFileSpellShell [--dict=<dict file> ...] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+start = 1
+
+dictfiles = []
+dict = {}
+while sys.argv[start][:7] == '--dict=':
+    import os
+    fn = os.path.expandvars(os.path.expanduser(sys.argv[start][7:]))
+    dictfiles.append(fn)
+    words = open(fn).readlines()
+    for word in words:
+        word = word[:-1]
+        dict[word] = word
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    if po.parse() == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+    else:
+        po.parseHeader()
+        po.spell(dict)
+        if len(po.spellErrors) > 0:
+            for e in po.spellErrors:
+                print 'Error: %s' % e
+                print 'a - add to current file (%s)' % filename
+#                print 'r - replace in current file with another word'
+                d = 1
+                for dictfile in dictfiles:
+                    print '%d - add to dictionary %s' % (d, dictfile)
+                    d = d + 1
+                print 'n - go to the next file'
+                x = raw_input('Enter your choice, enter to continue: ')
+                if x == 'n':
+                    break
+                elif x == 'a':
+                    header = po.data[0][3]
+                    headerlines = header.split('\\n')
+                    li = 0
+                    sli = -1
+                    for hl in headerlines:
+                        if hl.startswith('X-POFile-SpellExtra: '):
+                            if len(hl) + len(e) < 74:
+                                sli = li
+                            else:
+                                sli = -1
+                        li = li + 1
+                    if sli < 0:
+                        header = header + ('X-POFile-SpellExtra: %s\\n' % e)
+                    else:
+                        header = ''
+                        li = 0
+                        for hl in headerlines:
+                            header = header + hl
+                            if li == sli:
+                                header = header + ' ' + e
+                            header = header + '\\n'
+                            li = li + 1
+                    lines = po.prepare_replace(1)
+                    if lines != None:
+                        file = open(filename, 'w')
+                        po.execute_replace(lines, header, 1, file,
+                                           breaknewlines = 1)
+                        file.close()
+                        po.data[0] = (po.data[0][0], po.data[0][1],
+                                      po.data[0][2], header, po.data[0][3])
+                        print 'added word to file %s' % filename
+                    else:
+                        print 'error adding word to file %s' % filename
+#                elif x == 'r':
+#                    x = raw_input('Enter replacement word: ')
+                else:
+                    dictchoice = 0
+                    try:
+                        dictchoice = int(x)
+                    except:
+                        dictchoice = 0
+                    if dictchoice >= 1 and dictchoice <= len(dictfiles):
+                        chdict = dictfiles[dictchoice - 1]
+                        dfile = open(chdict, 'a')
+                        dfile.write('%s\n' % e)
+                        dfile.close()
+                        print 'added to dictionary %s' % chdict
+                        dict[e] = e
+                print

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:admin="http://webns.net/mvcb/" xml:lang="en">
+  <rdf:Description rdf:about="">
+    <admin:generatorAgent rdf:resource="http://doapy.bonjourlesmouettes.org/doap-a-matic"/>
+  </rdf:Description>
+  <doap:Project>
+    <doap:name>gettext lint tools</doap:name>
+    <doap:shortname>gettext-lint</doap:shortname>
+    <doap:homepage rdf:resource="http://mega.ist.utl.pt/~pmmm/gettext-lint"/>
+    <doap:created>2004-01-24</doap:created>
+    <doap:description>The gettext lint tools is a collection of tools for checking the validity and consistency of PO and POT files.</doap:description>
+    <doap:shortdesc>Collection of tools for checking the validity and consistency of PO and POT files.</doap:shortdesc>
+    <doap:programming-language>python</doap:programming-language>
+    <doap:license rdf:resource="http://usefulinc.com/doap/licenses/gpl"/>
+    <doap:maintainer>
+      <foaf:Person>
+        <foaf:name>Pedro Morais</foaf:name>
+        <foaf:mbox_sha1sum>90325b33fb3a59b2d9844902225705e9d66c949f</foaf:mbox_sha1sum>
+      </foaf:Person>
+    </doap:maintainer>
+  </doap:Project>
+</rdf:RDF>

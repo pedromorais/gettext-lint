@@ -1,0 +1,64 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file translation glossary generator
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Based on an idea by Kevin Donnelly <kevin@dotmon.com>
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import escape
+
+def error():
+    sys.stderr.write('Usage: POFileEquiv [--max=n] [--ratio=r] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+max = -1
+ratio = 0
+
+start = 1
+if sys.argv[start][:6] == '--max=':
+    try:
+        max = int(sys.argv[start][6:])
+    except:
+        max = -1
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+if sys.argv[start][:8] == '--ratio=':
+    try:
+        ratio = float(sys.argv[start][8:])
+    except:
+        ratio = 0
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+equiv = {}
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    if po.parse() == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+    else:
+        equiv = po.findEquiv(3, equiv)
+
+print '<po-file-equiv>'
+for word, matches in equiv.iteritems():
+    items = matches.items()
+    if len(items) < 1: continue
+    print '  <entry>'
+    print '    <original>%s</original>' % escape(word)
+    items.sort(lambda x, y: y[1] - x[1])
+    localmax = items[0][1]
+    for m, c in items[:max]:
+        if c < localmax * ratio: break
+        print '    <translation count="%d">%s</translation>' % (c, escape(m))
+    print '  </entry>'
+print '</po-file-equiv>'

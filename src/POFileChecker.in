@@ -1,0 +1,48 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file checker
+#
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# (c) Copyright 2003, 2004
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import Output
+
+def error():
+    sys.stderr.write('Usage: POFileChecker [--ignore-fuzzy] <file> [<file ...]\n')
+    sys.exit(-1)
+
+if len(sys.argv) < 2: error()
+
+start = 1
+
+ignoreFuzzy = 0
+if sys.argv[start][:14] == '--ignore-fuzzy':
+    ignoreFuzzy = 1
+    start = start + 1
+    if len(sys.argv) < start + 1: error()
+
+out = Output("po-file-checker")
+for filename in sys.argv[start:]:
+    po = POFile(filename)
+    if po.parse() == 0:
+        sys.stderr.write('error parsing file %s\n' % filename)
+    else:
+        po.ignoreFuzzy = ignoreFuzzy
+        po.parseHeader()
+        po.check()
+        if po.allowCount == None: po.allowCount = 0
+        if len(po.errors) != po.allowCount:
+            out.opentag('file',
+                        {'name': filename, 'allow': str(po.allowCount)})
+            for l, m, e in po.errors:
+                out.opentag('error', {'line': str(l), 'message': str(m)},
+                            body = e, close = 1)
+            out.closetag()
+out.finish()
