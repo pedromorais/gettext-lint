@@ -373,10 +373,10 @@ class POFile:
         space = ('\\n', '\\t')
         empty = ('&',)
         import re
-        s = re.sub('&[A-Za-z.-]*;', ' ', s)
-        s = re.sub('<[a-zA-Z0-9 =\\\\":/.-_?]*>', ' ', s)
-        s = re.sub('<[a-zA-Z0-9 =\\\\":/.-_?]*/>', ' ', s)
-        s = re.sub('</[a-zA-Z0-9]*>', ' ', s)
+        s = re.sub('&[^;]*;', ' ', s)
+        s = re.sub('<[^>]*>', ' ', s)
+        s = re.sub('<[^>]*/>', ' ', s)
+        s = re.sub('</[^>]*>', ' ', s)
         for t in space: s = s.replace(t, ' ')
         for t in empty: s = s.replace(t, '')
         return s
