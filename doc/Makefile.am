@@ -7,3 +7,10 @@ docbook2man:
 	xsltproc \
 	/usr/share/sgml/docbook/xsl-stylesheets/manpages/docbook.xsl $$I; \
 	done
+
+docbook2html:
+	for I in $(docbook); do \
+	xsltproc \
+	/usr/share/sgml/docbook/xsl-stylesheets/html/docbook.xsl $$I > \
+	$${I%%.xml}.html; \
+	done
