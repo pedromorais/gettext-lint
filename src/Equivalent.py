@@ -9,27 +9,27 @@
 
 class Equivalent:
 
-    def __init__(self, filename):
-        self.filename = filename
+    def __init__(self):
         self.map = None
 
-    def read_lines(self):
+    def read_lines(self, filename):
         try:
-            file = open(self.filename)
+            file = open(filename)
             lines = file.readlines()
             file.close()
             return lines
         except IOError:
             return None
         
-    def parse(self):
-        lines = self.read_lines()
+    def parse(self, filename, strip = ''):
+        lines = self.read_lines(filename)
         if lines == None: return 0
-        self.map = {}
+        if self.map == None: self.map = {}
         msgid = None
         list = []
         for i in lines:
             i = i.strip()
+            for k in strip: i = i.replace(k, '')
             if len(i) == 0:
                 if msgid != None and len(list) > 0: self.map[msgid] = list
                 msgid = None

@@ -9,6 +9,7 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
+import os
 import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
@@ -39,7 +40,7 @@ try:
 except getopt.GetoptError:
     usage()
 interactive = 0
-equivalent = None
+equivalentfiles = []
 onlyempty = 0
 match = None
 strip = ''
@@ -47,14 +48,14 @@ for o, a in opts:
     if o in ("-h", "--help"): usage(0)
     if o in ("-i", "--interactive"): interactive = 1
     if o in ("-o", "--only-empty"): onlyempty = 1
-    if o in ("-e", "--equivalent"):
-        import os
-        fn = os.path.expandvars(a)
-        equivalent = Equivalent(fn)
-        equivalent.parse()
+    if o in ("-e", "--equivalent"): equivalentfiles.append(a)
     if o in ("-m", "--match"): match = a
-    if o in ("-r", "--strip-chars"): strip = a        
+    if o in ("-r", "--strip-chars"): strip = a
 if len(args) < 1: usage()
+
+equivalent = Equivalent()
+for i in equivalentfiles:
+    equivalent.parse(os.path.expandvars(os.path.expanduser(i)), strip)
 
 map = {}
 for filename in args:
@@ -65,7 +66,7 @@ for filename in args:
 
 def inconsistent(msgid, result, equivalent):
     if len(result) < 2: return 0
-    if equivalent != None and equivalent.check(msgid, result): return 0
+    if equivalent.check(msgid, result): return 0
     if onlyempty:
         ccc = 0
         for msgstr in result.keys():
@@ -115,13 +116,14 @@ def interactiveConsistency(map, equivalent):
             print msgstr
         print
         addtofilemessage = ''
-        if equivalent != None: addtofilemessage = "'a' to add to ignore list, "
+        if len(equivalentfiles):
+            addtofilemessage = "'a' to add to ignore list, "
         x = raw_input('1 - %d to fix consistency, 0 to input text, '
                       '%sother to continue: ' % (c, addtofilemessage))
-        if equivalent and x == 'a':
-            print '+++ Adding to file %s' % equivalent.filename
+        if len(equivalentfiles) and x == 'a':
+            print '+++ Adding to file %s' % equivalentfiles[0]
             print '+++'
-            efile = open(equivalent.filename, 'a')
+            efile = open(equivalentfiles[0], 'a')
             print '+++ %s' % msgid
             efile.write('\n')
             efile.write('%s\n' % msgid)

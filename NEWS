@@ -4,6 +4,7 @@ INPROGRESS add man pages
 - add a default CSS for the reports, report.css
 - POFileSpellShell replaced by POFileSpell -i option
 - POFileConsistencyShell replaced by POFileConsistency -i option
+- POFileConsistency: allow muliple consistency equivalents files
 
 * Version 0.2.0 (2004-11-04):
 - add POFileFill, a tool to translate a file based on existing translations.
