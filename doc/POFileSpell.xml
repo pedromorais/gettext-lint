@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]>
+
+<refentry>
+  <refentryinfo>
+    <title>POFileSpell Manual</title>
+    <copyright>
+      <year>2004</year>
+    </copyright>
+    <author>
+      <firstname>Pedro</firstname>
+      <surname>Morais</surname>
+    </author>
+    <address><email>morais@kde.org</email></address>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>POFileSpell</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>POFileSpell</refname>
+    <refpurpose>checks the spelling in a collection of PO files</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>POFileSpell</command>
+      <group>
+	<arg>--help</arg>
+	<arg>--h</arg>
+      </group>
+      <group>
+	<arg>--interactive</arg>
+	<arg>--i</arg>
+      </group>
+      <group>
+	<arg>--overview</arg>
+	<arg>-o</arg>
+      </group>
+      <group>
+	<arg>--dict=<replaceable>file</replaceable></arg>
+	<arg>-e <replaceable>file</replaceable></arg>
+      </group>
+      <arg><replaceable>FILE</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="introduction">
+    <title>Introduction</title>
+    <para>
+      <application>POFileSpell</application>
+      checks the spelling in a collection of PO files.
+    </para>
+  </refsect1>
+
+  <refsect1 id="options">
+    <title>Command Line Options</title>    
+    <variablelist>
+      <varlistentry>
+	<term>
+          <option>--help</option> or <option>-h</option>
+        </term>
+	<listitem>
+	  <simpara>
+            show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--interactive</option> or <option>-i</option>
+        </term>
+	<listitem>
+	  <simpara>
+            interactive mode, iterate though the spelling errors using
+            a text mode interface; see the Interactive Mode section
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--overview</option> or <option>-o</option>
+        </term>
+	<listitem>
+	  <simpara>
+            generate an overview file, grouping by error and not by file
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--dict=</option><replaceable>file</replaceable> or
+          <option>-d </option><replaceable>file</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            load a file with a list of words to consider correct
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="interactive">
+    <title>Interactive Mode</title>
+    <para>TODO</para>
+  </refsect1>
+
+  <refsect1 id="headerdirectives">
+    <title>PO File Header Directives</title>
+    <para>
+      <application>POFileSpell</application> recognizes one PO file
+      header directive. As with all gettext lint tools, this directive
+      is prefixed with X-POFile.
+    </para>
+    <variablelist>
+      <varlistentry>
+	<term>
+          X-POFile-SpellExtra: <replaceable>word</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            adds the word to the file's list of accepted words
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="consistencyfile">
+    <title>Dictionary File Format</title>
+    <para>TODO</para>
+  </refsect1>
+
+  <refsect1 id="moreinfo">
+    <title>More Information</title>
+    <para>gettext-lint web page: http://gettext-lint.sourceforge.net/</para>
+  </refsect1>
+</refentry>
