@@ -86,7 +86,7 @@
 	<listitem>
 	  <simpara>
             interactive mode, iterate though the inconsistencies using
-            a text mode interface
+            a text mode interface; see the Interactive Mode section
           </simpara>
 	</listitem>
       </varlistentry>
@@ -113,7 +113,75 @@
           </simpara>
 	</listitem>
       </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--match=</option><replaceable>string</replaceable> or
+          <option>-m </option><replaceable>string</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            only report inconsistencies if at least one of the files involved
+            contain the given string
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--strip-chars=</option><replaceable>chars</replaceable> or
+          <option>-r </option><replaceable>chars</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            remove each of the chars from both msgid and msgstr
+            before checking inconsistencies
+          </simpara>
+	</listitem>
+      </varlistentry>
     </variablelist>
+  </refsect1>
+
+  <refsect1 id="interactive">
+    <title>Interactive Mode</title>
+    <para>TODO</para>
+  </refsect1>
+
+  <refsect1 id="headerdirectives">
+    <title>PO File Header Directives</title>
+    <para>
+      <application>POFileConsistency</application> recognizes several PO file
+      header directives. As with all gettext lint tools, these directives
+      are all prefixed with X-POFile.
+    </para>
+    <variablelist>
+      <varlistentry>
+	<term>
+          X-POFile-IgnoreConsistency: <replaceable>msgid</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            remove the given msgid from the list of messages to check
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          X-POFile-ConsistencyAlias: 
+          <replaceable>string1</replaceable>
+          <replaceable>string2</replaceable>
+        </term>
+	<listitem>
+	  <simpara>
+            replace all ocorrences of <replaceable>string1</replaceable> with
+            <replaceable>string2</replaceable> before checking consistency
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="consistencyfile">
+    <title>Consistency Equivalents File Format</title>
+    <para>TODO</para>
   </refsect1>
 
   <refsect1 id="moreinfo">
