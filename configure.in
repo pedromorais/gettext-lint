@@ -1,4 +1,4 @@
-AC_INIT(gettext-lint, 0.3.0, morais@kde.org)
+AC_INIT(gettext-lint, 0.3.1, morais@kde.org)
 AM_INIT_AUTOMAKE
 AM_PATH_PYTHON(2.0)
 
