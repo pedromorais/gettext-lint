@@ -21,7 +21,9 @@ HTML reports. For example:
 POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc /usr/share/gettext-lint/report.xsl - > report.html
 
 The included XSL can receive the parameter 'css' with the name of a stylesheet
-to reference in the resulting HTML.
+to reference in the resulting HTML. For example:
+
+POFileChecker $(find /path/to/po/files -name "*.po") | xsltproc --param css "'/usr/share/gettext-lint/report.css'" /usr/share/gettext-lint/report.xsl - > report.html
 
 The package also includes some interactive (text mode) tools:
 POFileConsistencyShell - consistency checker
