@@ -104,7 +104,7 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                         print '  message %d, line %d: %s' % (
                             message, line, context)
                     print 'a - add to current file (%s)' % filename
-    #                print 'r - replace in current file with another word'
+                    print 'r - replace in current file with another word'
                     d = 1
                     for dictfile in dictfiles:
                         print '%d - add to dictionary %s' % (d, dictfile)
@@ -148,8 +148,23 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                             print 'added word to file %s' % filename
                         else:
                             print 'error adding word to file %s' % filename
-#                   elif x == 'r':
-#                        x = raw_input('Enter replacement word: ')
+                    elif x == 'r':
+                        replace = raw_input('Enter replacement word: ')
+                        for line, message, context in ctxs:
+                            podata = po.data[message - 1]
+                            rrr = podata[3].replace(e, replace)
+                            lines = po.prepare_replace(message)
+                            if lines != None:
+                                file = open(filename, 'w')
+                                po.execute_replace(lines, rrr, 1, file,
+                                                   breaknewlines = 1)
+                                file.close()
+                                po.data[message - 1] = (podata[0], podata[1],
+                                                        podata[2], rrr,
+                                                        podata[3])
+                                print 'replaced word in %s' % filename
+                            else:
+                                print 'error replacing word in %s' % filename
                     else:
                         dictchoice = 0
                         try:
