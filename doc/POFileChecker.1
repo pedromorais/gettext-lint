@@ -24,7 +24,7 @@ POFileChecker \- searches for common mistakes in PO files
 .ad l
 .hy 0
 .HP 14
-\fBPOFileChecker\fR [\fB\-\-ignore\-fuzzy\fR] [\fIfile1\fR] [\fIfile2\fR] [\fI\&.\&.\&.\&.\fR]
+\fBPOFileChecker\fR [\fB\-\-help\fR | \fB\-\-h\fR] [\fB\-\-ignore\-fuzzy\fR | \fB\-\-i\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
 .ad
 .hy
 
@@ -36,8 +36,33 @@ POFileChecker \- searches for common mistakes in PO files
 .SH "COMMAND LINE OPTIONS"
 
 .TP
-\fB\-\-ignore\-fuzzy\fR
+\fB\-\-help\fR or \fB\-h\fR
+show usage instructions
+
+.TP
+\fB\-\-ignore\-fuzzy\fR or \fB\-i\fR
 don't check validity of fuzzy entries
+
+.SH "PO FILE HEADER DIRECTIVES"
+
+.PP
+ POFileChecker recognizes several PO file header directives\&. As with all gettext lint tools, these directives are all prefixed with X\-POFile\&.
+
+.TP
+X\-POFile\-Allow: \fInumber\fR
+number of errors to ignore; if number of detected errors is diffent than this they will all be reported; a file with 0 errors but an error allowance greater than zero will also be reported
+
+.TP
+X\-POFile\-CheckAccelerator: \fI1|0\fR
+enable or disable checking accelerators, enabled by default
+
+.TP
+X\-POFile\-CheckEndPontuation: \fI1|0\fR
+enable or disable checking ending pontuation, enabled by default
+
+.TP
+X\-POFile\-LineLength: \fInumber\fR
+check that the line length doesn't exceed \fInumber\fR chars; disable by default
 
 .SH "MORE INFORMATION"
 

@@ -96,6 +96,37 @@
 	</listitem>
       </varlistentry>
     </variablelist>
+    <variablelist>
+      <varlistentry>
+	<term>X-POFile-CheckAccelerator: <replaceable>1|0</replaceable></term>
+	<listitem>
+	  <simpara>
+            enable or disable checking accelerators, enabled by default
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+    <variablelist>
+      <varlistentry>
+	<term>X-POFile-CheckEndPontuation: <replaceable>1|0</replaceable></term>
+	<listitem>
+	  <simpara>
+            enable or disable checking ending pontuation, enabled by default
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+    <variablelist>
+      <varlistentry>
+	<term>X-POFile-LineLength: <replaceable>number</replaceable></term>
+	<listitem>
+	  <simpara>
+            check that the line length doesn't exceed
+            <replaceable>number</replaceable> chars; disable by default
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
   </refsect1>
 
   <refsect1 id="moreinfo">

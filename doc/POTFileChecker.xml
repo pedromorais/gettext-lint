@@ -29,9 +29,12 @@
   <refsynopsisdiv>
     <cmdsynopsis>
       <command>POTFileChecker</command>
-      <arg><replaceable>file1</replaceable></arg>
-      <arg><replaceable>file2</replaceable></arg>
-      <arg><replaceable>....</replaceable></arg>
+      <group>
+	<arg>--help</arg>
+	<arg>--h</arg>
+      </group>
+      <arg><replaceable>FILE</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -41,6 +44,22 @@
       <application>POTFileChecker</application>
       searches for common mistakes in POT files.
     </para>
+  </refsect1>
+
+  <refsect1 id="options">
+    <title>Command Line Options</title>    
+    <variablelist>
+      <varlistentry>
+	<term>
+          <option>--help</option> or <option>-h</option>
+        </term>
+	<listitem>
+	  <simpara>
+            show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
   </refsect1>
 
   <refsect1 id="moreinfo">

@@ -19,106 +19,42 @@
 ..
 .TH "POFILECONSISTENCY" 1 "" "" "POFileConsistency Manual"
 .SH NAME
-POFileConsistency \- check consistency in a collection of PO files
+POFileConsistency \- checks consistency in a collection of PO files
 .SH "SYNOPSIS"
 .ad l
 .hy 0
 .HP 18
-\fBPOFileConsistency\fR [\fB\-\-equivalent=\fIfile\fR\fR | \fB\-\-only\-empty\fR | \fB\-\-match=\fIstring\fR\fR | \fB\-\-strip\-chars=\fIchars\fR\fR] [\fIfile1\fR] [\fIfile2\fR] [\fI\&.\&.\&.\&.\fR]
+\fBPOFileConsistency\fR [\fB\-\-help\fR | \fB\-\-h\fR] [\fB\-\-interactive\fR | \fB\-\-i\fR] [\fB\-\-equivalent=\fIfile\fR\fR | \fB\-e\ \fIfile\fR\fR] [\fB\-\-only\-empty\fR | \fB\-o\fR] [\fB\-\-match=\fIstring\fR\fR | \fB\-m\ \fIstring\fR\fR] [\fB\-\-strip\-chars=\fIchars\fR\fR | \fB\-r\ \fIchars\fR\fR] [\fIFILE\fR] [\fI\&.\&.\&.\fR]
 .ad
 .hy
 
 .SH "INTRODUCTION"
 
 .PP
- xsltproc is a command line tool for applying XSLT stylesheets to XML documents\&. It is part of libxslt, the XSLT C library for GNOME\&. While it was developed as part of the GNOME project, it can operate independently of the GNOME desktop\&.
+ POFileConsistency checks consistency in a collection of PO files\&.
 
 .SH "COMMAND LINE OPTIONS"
 
 .TP
-\fB\-\-equivalent=\fR\fIfile\fR
+\fB\-\-help\fR or \fB\-h\fR
+show usage instructions
+
+.TP
+\fB\-\-interactive\fR or \fB\-i\fR
+interactive mode, iterate though the inconsistencies using a text mode interface
+
+.TP
+\fB\-\-equivalent=\fR\fIfile\fR or \fB\-e \fR\fIfile\fR
 load a file with a list of equivalent msgstr for a given msgid
 
 .TP
-\fB\-v\fR or \fB\-\-verbose\fR
-Output each step taken by xsltproc in processing the stylesheet and the document\&.
-
-.TP
-\fB\-o\fR or \fB\-\-output\fR \fIfile\fR
-Direct output to the file named \fIfile\fR\&. For multiple outputs, also known as "chunking", \fB\-o\fR  \fBdirectory/\fR directs the output files to a specified directory\&. The directory must already exist\&.
-
-.TP
-\fB\-\-timing\fR
-Display the time used for parsing the stylesheet, parsing the document and applying the stylesheet and saving the result\&. Displayed in milliseconds\&.
-
-.TP
-\fB\-\-repeat\fR
-Run the transformation 20 times\&. Used for timing tests\&.
-
-.TP
-\fB\-\-debug\fR
-Output an XML tree of the transformed document for debugging purposes\&.
-
-.TP
-\fB\-\-novalid\fR
-Skip loading the document's DTD\&.
-
-.TP
-\fB\-\-noout\fR
-Do not output the result\&.
-
-.TP
-\fB\-\-maxdepth\fR \fIvalue\fR
-Adjust the maximum depth of the template stack before libxslt concludes it is in an infinite loop\&. The default is 500\&.
-
-.TP
-\fB\-\-html\fR
-The input document is an HTML file\&.
-
-.TP
-\fB\-\-param\fR \fIname\fR \fIvalue\fR
-Pass a parameter of name \fIname\fR and value \fIvalue\fR to the stylesheet\&. You may pass multiple name/value pairs up to a maximum of 32\&. If the value being passed is a string rather than a node identifier, use \fB\-\-stringparam\fR instead\&.
-
-.TP
-\fB\-\-stringparam\fR \fIname\fR \fIvalue\fR
-Pass a paramenter of name \fIname\fR and value \fIvalue\fR where \fIvalue\fR is a string rather than a node identifier\&. (Note: The string must be utf\-8\&.)
-
-.TP
-\fB\-\-nonet\fR
-Do not use the Internet to fetch DTD's or entities\&.
-
-.TP
-\fB\-\-catalogs\fR
-Use the SGML catalog specified in \fBSGML_CATALOG_FILES\fR to resolve the location of external entities\&. By default, xsltproc looks for the catalog specified in \fBXML_CATALOG_FILES\fR\&. If that is not specified, it uses \fI/etc/xml/catalog\fR\&.
-
-.TP
-\fB\-\-xinclude\fR
-Process the input document using the Xinclude specification\&. More details on this can be found in the Xinclude specification: http://www\&.w3\&.org/TR/xinclude/: \fIhttp://www.w3.org/TR/xinclude/\fR 
-
-.TP
-\fB\-\-profile\fR or \fB\-\-norman\fR
-Output profiling information detailing the amount of time spent in each part of the stylesheet\&. This is useful in optimizing stylesheet performance\&.
-
-.TP
-\fB\-\-dumpextensions\fR
-Dumps the list of all registered extensions on stdout\&.
-
-.TP
-\fB\-\-nowrite\fR
-Refuses to write to any file or resource\&.
-
-.TP
-\fB\-\-nomkdir\fR
-Refuses to create directories\&.
-
-.TP
-\fB\-\-writesubtree\fR \fIpath\fR
-Allow file write only within the \fIpath\fR subtree\&.
+\fB\-\-only\-empty\fR or \fB\-o\fR
+only report inconsistencies with at least one of the translations empty
 
 .SH "MORE INFORMATION"
 
 .PP
- gettext\-lint web page:  http://gettext\-lint\&.sourceforge\&.net/: \fIhttp://gettext-lint.sourceforge.net/\fR 
+gettext\-lint web page: http://gettext\-lint\&.sourceforge\&.net/
 
 .SH AUTHOR
 Pedro Morais.

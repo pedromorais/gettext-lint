@@ -23,43 +23,77 @@
 
   <refnamediv>
     <refname>POFileConsistency</refname>
-    <refpurpose>check consistency in a collection of PO files</refpurpose>
+    <refpurpose>checks consistency in a collection of PO files</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
       <command>POFileConsistency</command>
       <group>
-	<arg>--equivalent=<replaceable>file</replaceable></arg>
-	<arg>--only-empty</arg>
-	<arg>--match=<replaceable>string</replaceable></arg>
-	<arg>--strip-chars=<replaceable>chars</replaceable></arg>
+	<arg>--help</arg>
+	<arg>--h</arg>
       </group>
-      <arg><replaceable>file1</replaceable></arg>
-      <arg><replaceable>file2</replaceable></arg>
-      <arg><replaceable>....</replaceable></arg>
+      <group>
+	<arg>--interactive</arg>
+	<arg>--i</arg>
+      </group>
+      <group>
+	<arg>--equivalent=<replaceable>file</replaceable></arg>
+	<arg>-e <replaceable>file</replaceable></arg>
+      </group>
+      <group>
+	<arg>--only-empty</arg>
+	<arg>-o</arg>
+      </group>
+      <group>
+	<arg>--match=<replaceable>string</replaceable></arg>
+	<arg>-m <replaceable>string</replaceable></arg>
+      </group>
+      <group>
+	<arg>--strip-chars=<replaceable>chars</replaceable></arg>
+	<arg>-r <replaceable>chars</replaceable></arg>
+      </group>
+      <arg><replaceable>FILE</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
-
 
   <refsect1 id="introduction">
     <title>Introduction</title>
     <para>
-      <application>xsltproc</application> is a command line tool for applying
-      <acronym>XSLT</acronym> stylesheets to <acronym>XML</acronym>
-      documents. It is part of <application>libxslt</application>, the XSLT C
-      library for GNOME. While it was developed as part of the GNOME project, it
-      can operate independently of the GNOME desktop.
+      <application>POFileConsistency</application>
+      checks consistency in a collection of PO files.
     </para>
   </refsect1>
 
   <refsect1 id="options">
-    <title>Command Line Options</title>
-    
+    <title>Command Line Options</title>    
     <variablelist>
       <varlistentry>
 	<term>
-          <option>--equivalent=</option><replaceable>file</replaceable>
+          <option>--help</option> or <option>-h</option>
+        </term>
+	<listitem>
+	  <simpara>
+            show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--interactive</option> or <option>-i</option>
+        </term>
+	<listitem>
+	  <simpara>
+            interactive mode, iterate though the inconsistencies using
+            a text mode interface
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--equivalent=</option><replaceable>file</replaceable> or
+          <option>-e </option><replaceable>file</replaceable>
         </term>
 	<listitem>
 	  <simpara>
@@ -68,232 +102,22 @@
           </simpara>
 	</listitem>
       </varlistentry>
-
-    
       <varlistentry>
 	<term>
-      <option>-v</option> or <option>--verbose</option></term>
+          <option>--only-empty</option> or <option>-o</option>
+        </term>
 	<listitem>
-	  <simpara>Output each step taken
-      by <application>xsltproc</application> in processing the stylesheet and the document.
-    </simpara>
+	  <simpara>
+            only report inconsistencies with at least one of the translations
+            empty
+          </simpara>
 	</listitem>
       </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>-o</option> or <option>--output</option> <replaceable>file</replaceable></term>
-	<listitem>
-	  <simpara>Direct output to the file named
-      <replaceable>file</replaceable>. For multiple outputs, also known as
-      "chunking", <option>-o</option> <option>directory/</option> directs the
-      output files to a specified directory. The directory must already exist.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--timing</option></term>
-	<listitem>
-	  <simpara>Display the time used for parsing the
-      stylesheet, parsing the document and applying the stylesheet and saving
-      the result. Displayed in milliseconds.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--repeat</option></term>
-	<listitem>
-	  <simpara>Run the transformation 20 times. Used for
-      timing tests.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--debug</option></term>
-	<listitem>
-	  <simpara>Output an <acronym>XML</acronym> tree of the
-      transformed document for debugging purposes.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--novalid</option></term>
-	<listitem>
-	  <simpara>Skip loading the document's <acronym>DTD</acronym>.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--noout</option></term>
-	<listitem>
-	  <simpara>Do not output the result.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--maxdepth</option> <replaceable>value</replaceable></term>
-	<listitem>
-	  <simpara>Adjust the
-      maximum depth of the template stack before
-      <application>libxslt</application> concludes it is in an infinite
-      loop. The default is 500.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--html</option></term>
-	<listitem>
-	  <simpara>The input document is an <acronym>HTML</acronym>
-      file.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-      <varlistentry>
-	<term>
-      <option>--param</option> <replaceable>name</replaceable> <replaceable>value</replaceable></term>
-	<listitem>
-	  <simpara>Pass a parameter of name
-      <replaceable>name</replaceable> and value
-      <replaceable>value</replaceable> to the stylesheet. You may pass multiple
-      name/value pairs up to a maximum of 32. If the value being passed is a
-	    string rather than a node identifier, use
-	    <option>--stringparam</option> instead.
-	  </simpara>
-      	</listitem>
-      </varlistentry>
-
-      <varlistentry>
-	<term>
-	  <option>--stringparam</option> <replaceable>name</replaceable> <replaceable>value</replaceable></term>
-	<listitem>
-	  <simpara>Pass a paramenter of name <replaceable>name</replaceable> and
-	    value <replaceable>value</replaceable> where
-	    <replaceable>value</replaceable> is a string rather than a node
-	    identifier. (Note: The string must be utf-8.) </simpara>
-	</listitem>
-      </varlistentry>
-    
-      <varlistentry>
-	<term>
-      <option>--nonet</option></term>
-	<listitem>
-	  <simpara>Do not use the Internet to fetch DTD's or
-      entities.
-    </simpara>
-	</listitem>
-      </varlistentry>
-    
-      <varlistentry>
-	<term>
-      <option>--catalogs</option></term>
-	<listitem>
-	  <simpara>Use the <acronym>SGML</acronym> catalog specified in
-      <envar>SGML_CATALOG_FILES</envar> to resolve the location of
-	    external entities. By default, <application>xsltproc</application>
-	    looks for the catalog specified in
-      <envar>XML_CATALOG_FILES</envar>. If that is not specified, it uses
-      <filename>/etc/xml/catalog</filename>.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-    
-      <varlistentry>
-	<term>
-      <option>--xinclude</option></term>
-	<listitem>
-	  <simpara>Process the input document using the
-      Xinclude specification. More details on this can be found in the Xinclude
-      specification: <ulink
-      url="http://www.w3.org/TR/xinclude/">http://www.w3.org/TR/xinclude/</ulink>
-    </simpara>
-	</listitem>
-      </varlistentry>
-    
-    
-      <varlistentry>
-	<term>
-      <option>--profile</option> or <option>--norman</option></term>
-	<listitem>
-	  <simpara>Output profiling
-      information detailing the amount of time spent in each part of the
-      stylesheet. This is useful in optimizing stylesheet performance.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-      <varlistentry>
-	<term>
-      <option>--dumpextensions</option></term>
-	<listitem>
-	  <simpara>Dumps the list of all registered extensions on stdout.
-    </simpara>
-	</listitem>
-      </varlistentry>
-
-      <varlistentry>
-	<term>
-      <option>--nowrite</option></term>
-	<listitem>
-	  <simpara>Refuses to write to any file or resource.
-    </simpara>
-	</listitem>
-      </varlistentry>
-    
-      <varlistentry>
-	<term>
-      <option>--nomkdir</option></term>
-	<listitem>
-	  <simpara>Refuses to create directories.
-    </simpara>
-	</listitem>
-      </varlistentry>
-    
-      <varlistentry>
-	<term>
-      <option>--writesubtree</option> <replaceable>path</replaceable></term>
-	<listitem>
-	  <simpara>Allow file write only within the
-	  <replaceable>path</replaceable> subtree.
-    </simpara>
-	</listitem>
-      </varlistentry>
-    
-    
     </variablelist>
   </refsect1>
 
   <refsect1 id="moreinfo">
     <title>More Information</title>
-    
-    <para>
-      <application>gettext-lint web page: </application>
-      <ulink url="http://gettext-lint.sourceforge.net/">http://gettext-lint.sourceforge.net/</ulink>
-    </para>
-    
-  
+    <para>gettext-lint web page: http://gettext-lint.sourceforge.net/</para>
   </refsect1>
 </refentry>
