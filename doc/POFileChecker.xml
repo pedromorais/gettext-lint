@@ -30,11 +30,15 @@
     <cmdsynopsis>
       <command>POFileChecker</command>
       <group>
-	<arg>--ignore-fuzzy</arg>
+	<arg>--help</arg>
+	<arg>--h</arg>
       </group>
-      <arg><replaceable>file1</replaceable></arg>
-      <arg><replaceable>file2</replaceable></arg>
-      <arg><replaceable>....</replaceable></arg>
+      <group>
+	<arg>--ignore-fuzzy</arg>
+	<arg>--i</arg>
+      </group>
+      <arg><replaceable>FILE</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
   </refsynopsisdiv>
 
@@ -51,11 +55,43 @@
     <variablelist>
       <varlistentry>
 	<term>
-          <option>--ignore-fuzzy</option>
+          <option>--help</option> or <option>-h</option>
+        </term>
+	<listitem>
+	  <simpara>
+            show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+      <varlistentry>
+	<term>
+          <option>--ignore-fuzzy</option> or <option>-i</option>
         </term>
 	<listitem>
 	  <simpara>
             don't check validity of fuzzy entries
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="headeroptions">
+    <title>PO File Header Directives</title>
+    <para>
+      <application>POFileChecker</application> recognizes several PO file
+      header directives. As with all gettext lint tools, these directives
+      are all prefixed with X-POFile.
+    </para>
+    <variablelist>
+      <varlistentry>
+	<term>X-POFile-Allow: <replaceable>number</replaceable></term>
+	<listitem>
+	  <simpara>
+            number of errors to ignore; if number of detected errors is
+            diffent than this they will all be reported; a file with 0
+            errors but an error allowance greater than zero will also 
+            be reported
           </simpara>
 	</listitem>
       </varlistentry>
