@@ -19,7 +19,7 @@
 ..
 .TH "POFILECHECKER" 1 "" "" "POFileChecker Manual"
 .SH NAME
-POFileChecker \- searches for common mistakes in PO files
+POFileChecker \- searches for common mistakes in PO/POT files
 .SH "SYNOPSIS"
 .ad l
 .hy 0
@@ -31,13 +31,17 @@ POFileChecker \- searches for common mistakes in PO files
 .SH "INTRODUCTION"
 
 .PP
- POFileChecker searches for common mistakes in PO files\&.
+ POFileChecker searches for common mistakes in PO/POT files\&.
 
 .SH "COMMAND LINE OPTIONS"
 
 .TP
 \fB\-\-help\fR or \fB\-h\fR
 show usage instructions
+
+.TP
+\fB\-\-pot\fR or \fB\-t\fR
+check a pot file, not a po file
 
 .TP
 \fB\-\-ignore\-fuzzy\fR or \fB\-i\fR
