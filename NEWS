@@ -1,4 +1,4 @@
-* Version 0.2.0 (2004-11-??):
+* Version 0.2.0 (2004-11-04):
 - add POFileFill, a tool to translate a file based on existing translations.
 - add POFileSpell, a tool to spell check files.
 - add POFileSpellCheck, related to POFileSpell as POFileConsistencyShell is
