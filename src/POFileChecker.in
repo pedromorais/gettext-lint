@@ -21,7 +21,7 @@ def usage(code = -1):
     w('\n')
     w('Options:\n')
     w('  -h, --help                 show this help\n')
-    w('  -i, --ignore-fuzzy         don\'t check fuzzy translations\n')
+    w('  -f, --ignore-fuzzy         don\'t check fuzzy translations\n')
     sys.exit(code)
 
 try:
