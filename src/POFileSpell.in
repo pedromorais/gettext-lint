@@ -25,6 +25,7 @@ def usage(code = -1):
     w('\n')
     w('Options:\n')
     w('  -h, --help                 show this help\n')
+    w('  -i, --interactive          interactive console mode\n')
     w('  -o, --overview             generate an overview file\n')
     w('  -d, --dict=<file>          load a extra dictionary file\n')
     w('      --command=<command>    command used for spellchecking\n')
@@ -32,19 +33,24 @@ def usage(code = -1):
     sys.exit(code)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hod:",
-                               ["help", "overview", "dict=", "command="])
+    opts, args = getopt.getopt(sys.argv[1:], "hiod:",
+                               ["help", "interactive", "overview", "dict=",
+                                "command="])
 except getopt.GetoptError:
     usage()
+interactive = 0
 overview = None
 dict = {}
+dictfiles = []
 spellCommand = None
 for o, a in opts:
     if o in ("-h", "--help"): usage(0)
+    if o in ("-i", "--interactive"): interactive = 1
     if o in ("-o", "--overview"): overview = {}
     if o in ("-d", "--dict"):
         import os
         fn = os.path.expandvars(os.path.expanduser(a))
+        dictfiles.append(fn)
         words = open(fn).readlines()
         for word in words:
             word = word[:-1]
@@ -53,29 +59,109 @@ for o, a in opts:
         spellCommand = a
 if len(args) < 1: usage()
 
-tagname = "po-file-spell"
-if overview != None: tagname = "po-file-spell-overview"
-out = Output(tagname)
-for filename in args:
-    po = POFile(filename)
-    if po.parse() == 0:
-        sys.stderr.write('error parsing file %s\n' % filename)
-    else:
-        po.parseHeader()
-        if spellCommand: po.spellCommand = spellCommand
-        po.spell(dict)
-        if len(po.spellErrors) > 0:
-            if overview != None:
+def spelling(args, overview, dict, dictfiles, spellCommand):
+    tagname = "po-file-spell"
+    if overview != None: tagname = "po-file-spell-overview"
+    out = Output(tagname)
+    for filename in args:
+        po = POFile(filename)
+        if po.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+        else:
+            po.parseHeader()
+            if spellCommand: po.spellCommand = spellCommand
+            po.spell(dict)
+            if len(po.spellErrors) > 0:
+                if overview != None:
+                    for e in po.spellErrors:
+                        ce = 0
+                        if overview.has_key(e): ce= overview[e]
+                        overview[e] = ce + 1
+                else:
+                    out.opentag('file', {'name': filename})
+                    for e in po.spellErrors:
+                        out.opentag('error', {}, body = e, close = 1)
+                    out.closetag()
+    if overview:
+        for i in overview.iteritems():
+            out.opentag('error', {'count': str(i[1])}, body = i[0], close = 1)
+    out.finish()
+
+def interactiveSpelling(args, dict, dictfiles, spellCommand):
+    for filename in args:
+        po = POFile(filename)
+        if po.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+        else:
+            po.parseHeader()
+            if spellCommand: po.spellCommand = spellCommand
+            po.spell(dict)
+            if len(po.spellErrors) > 0:
                 for e in po.spellErrors:
-                    ce = 0
-                    if overview.has_key(e): ce= overview[e]
-                    overview[e] = ce + 1
-            else:
-                out.opentag('file', {'name': filename})
-                for e in po.spellErrors:
-                    out.opentag('error', {}, body = e, close = 1)
-                out.closetag()
-if overview:
-    for i in overview.iteritems():
-        out.opentag('error', {'count': str(i[1])}, body = i[0], close = 1)
-out.finish()
+                    print 'Error: %s' % e
+                    print 'a - add to current file (%s)' % filename
+    #                print 'r - replace in current file with another word'
+                    d = 1
+                    for dictfile in dictfiles:
+                        print '%d - add to dictionary %s' % (d, dictfile)
+                        d = d + 1
+                    print 'n - go to the next file'
+                    x = raw_input('Enter your choice, enter to continue: ')
+                    if x == 'n':
+                        break
+                    elif x == 'a':
+                        header = po.data[0][3]
+                        headerlines = header.split('\\n')
+                        li = 0
+                        sli = -1
+                        for hl in headerlines:
+                            if hl.startswith('X-POFile-SpellExtra: '):
+                                if len(hl) + len(e) < 74:
+                                    sli = li
+                                else:
+                                    sli = -1
+                            li = li + 1
+                        if sli < 0:
+                            header = header + ('X-POFile-SpellExtra: %s\\n'
+                                               % e)
+                        else:
+                            header = ''
+                            li = 0
+                            for hl in headerlines:
+                                header = header + hl
+                                if li == sli:
+                                    header = header + ' ' + e
+                                header = header + '\\n'
+                                li = li + 1
+                        lines = po.prepare_replace(1)
+                        if lines != None:
+                            file = open(filename, 'w')
+                            po.execute_replace(lines, header, 1, file,
+                                               breaknewlines = 1)
+                            file.close()
+                            po.data[0] = (po.data[0][0], po.data[0][1],
+                                          po.data[0][2], header, po.data[0][3])
+                            print 'added word to file %s' % filename
+                        else:
+                            print 'error adding word to file %s' % filename
+#                   elif x == 'r':
+#                        x = raw_input('Enter replacement word: ')
+                    else:
+                        dictchoice = 0
+                        try:
+                            dictchoice = int(x)
+                        except:
+                            dictchoice = 0
+                        if dictchoice >= 1 and dictchoice <= len(dictfiles):
+                            chdict = dictfiles[dictchoice - 1]
+                            dfile = open(chdict, 'a')
+                            dfile.write('%s\n' % e)
+                            dfile.close()
+                            print 'added to dictionary %s' % chdict
+                            dict[e] = e
+                    print
+
+if interactive:
+    interactiveSpelling(args, dict, dictfiles, spellCommand)
+else:
+    spelling(args, overview, dict, dictfiles, spellCommand)
