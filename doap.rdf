@@ -15,5 +15,13 @@
         <foaf:mbox_sha1sum>90325b33fb3a59b2d9844902225705e9d66c949f</foaf:mbox_sha1sum>
       </foaf:Person>
     </doap:maintainer>
+    <doap:download-page rdf:resource="http://sourceforge.net/project/showfiles.php?group_id=122521"/>
+    <doap:repository>
+      <doap:CVSRepository>
+        <doap:anon-root>:pserver:anonymous@cvs.sourceforge.net:/cvsroot/gettext-lint</doap:anon-root>
+        <doap:module>gettext-lint</doap:module>
+        <doap:browse rdf:resource="http://cvs.sourceforge.net/viewcvs.py/gettext-lint/"/>
+      </doap:CVSRepository>
+    </doap:repository>
   </doap:Project>
 </rdf:RDF>
