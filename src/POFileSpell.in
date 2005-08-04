@@ -123,7 +123,8 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                         replace = raw_input('Enter replacement word: ')
                         for line, message, context in ctxs:
                             podata = po.data[message - 1]
-                            rrr = podata[3].replace(e, replace)
+                            regexp = re.compile('\\b' + e + '\\b')
+                            rrr = r.sub(replace, podata[3])
                             lines = po.prepare_replace(message)
                             if lines != None:
                                 file = open(filename, 'w')
