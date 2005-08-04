@@ -52,6 +52,10 @@ generate an overview file, grouping by error and not by file
 load a file with a list of words to consider correct; can be used multiple times
 
 .TP
+\fB\-\-batch\-add=\fR\fIfile\fR
+load a file with a list of words to add to the X\-POFile\-SpellExtra section of each of the target PO files; can be used multiple times; when used, the actual spelling process is not run
+
+.TP
 \fB\-\-command=\fR\fIcommand\fR
 the command used for actually spell checking the text, by default \fBaspell \-\-encoding=utf\-8 \-l\fR; if you want to use \fBispell\fR, try something like \fB\-\-comand="ispell \-l"\fR or \fB\-\-comand="iconv \-t iso\-8859\-1 | ispell \-l"\fR 
 
