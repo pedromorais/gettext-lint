@@ -64,6 +64,20 @@ for filename in args:
     if po.consistency(map, strip) == 0:
         sys.stderr.write('error parsing file %s\n' % filename)
 
+def addIgnoreConsistency(po, e):
+    header = po.data[0][3]
+    header = header + ('X-POFile-IgnoreConsistency: %s\\n' % e)
+
+    lines = po.prepare_replace(1)
+    if lines != None:
+        file = open(po.filename, 'w')
+        po.execute_replace(lines, header, 1, file, breaknewlines = 1)
+        file.close()
+        po.data[0] = (po.data[0][0], po.data[0][1],
+                      po.data[0][2], header, po.data[0][3])
+        return 1
+    return 0
+
 def inconsistent(msgid, result, equivalent):
     if len(result) < 2: return 0
     if equivalent.check(msgid, result): return 0
@@ -118,8 +132,9 @@ def interactiveConsistency(map, equivalent):
         addtofilemessage = ''
         if len(equivalentfiles):
             addtofilemessage = "'a' to add to ignore list, "
-        x = raw_input('1 - %d to fix consistency, 0 to input text, '
-                      '%sother to continue: ' % (c, addtofilemessage))
+        x = raw_input("1 - %d to fix consistency, 0 to input text, %s\n"
+                      "'l' to add to each file local ignore list, "
+                      "other to continue: " % (c, addtofilemessage))
         if len(equivalentfiles) and x == 'a':
             print '+++ Adding to file %s' % equivalentfiles[0]
             print '+++'
@@ -132,6 +147,14 @@ def interactiveConsistency(map, equivalent):
                 efile.write('%s\n' % msgstr)
             print
             efile.close()
+            continue
+        elif x == 'l':
+            for msgstr, filenames in result.iteritems():
+                for fx, message in filenames:
+                    po = POFile(fx)
+                    po.parse()
+                    po.parseHeader()
+                    addIgnoreConsistency(po, msgid)
             continue
         n = -1
         try:
