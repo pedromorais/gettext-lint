@@ -127,9 +127,10 @@
       this inconsistency, a number of a possible translation
       (<keycap>1</keycap>, <keycap>2</keycap>, ...) to change all 
       the translations to that text, <keycap>0</keycap> to input a text
-      to use in all the translations, or, if you are using at least one
-      equivalents file, <keycap>a</keycap> to add the exception to the
-      first of those files.
+      to use in all the translations,
+      <keycap>l</keycap> to add the exception to each of the PO files,
+      or, if you are using at least one equivalents file,
+      <keycap>a</keycap> to add the exception to the first of those files.
     </para>
   </refsect1>
 
