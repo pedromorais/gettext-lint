@@ -1,3 +1,7 @@
+* Version 0.3.2 (2005-08-06):
+- add to local file ignore list command in POFileConsistency interactive mode
+- add --batch-add option to POFileSpell
+
 * Version 0.3.1 (2005-02-10):
 - add replace command in POFileSpell interactive mode
 - merge POTFileChecker into POFileChecker (run with --pot)
