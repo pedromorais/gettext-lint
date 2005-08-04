@@ -10,6 +10,7 @@
 # Distributable under the terms of the GPL - see COPYING
 
 import sys
+import os
 import getopt
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
@@ -48,7 +49,6 @@ for o, a in opts:
     if o in ("-i", "--interactive"): interactive = 1
     if o in ("-o", "--overview"): overview = {}
     if o in ("-d", "--dict"):
-        import os
         fn = os.path.expandvars(os.path.expanduser(a))
         dictfiles.append(fn)
         words = open(fn).readlines()
