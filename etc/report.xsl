@@ -8,6 +8,7 @@
             doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
 
 <xsl:param name="css"/>
+<xsl:param name="basefileurl"/>
 
 <xsl:template match="/">
   <xsl:apply-templates select="*"/>
@@ -72,28 +73,28 @@
 
 <xsl:template match="file[error]" mode="status">
   <tr>
-    <td><xsl:value-of select="@name"/></td>
+    <td><xsl:apply-templates select="current()" mode="link"/></td>
     <td span="2"><xsl:value-of select="error"/></td>
   </tr>
 </xsl:template>
 
 <xsl:template match="file[@obsolete = 'true']" mode="status">
   <tr>
-    <td><xsl:value-of select="@name"/></td>
+    <td><xsl:apply-templates select="current()" mode="link"/></td>
     <td span="2">obsolete</td>
   </tr>
 </xsl:template>
 
 <xsl:template match="file[@not-found = 'true']" mode="status">
   <tr>
-    <td><xsl:value-of select="@name"/></td>
+    <td><xsl:apply-templates select="current()" mode="link"/></td>
     <td span="2">totally untranslated</td>
   </tr>
 </xsl:template>
 
 <xsl:template match="file" mode="status">
   <tr>
-    <td><xsl:value-of select="@name"/></td>
+    <td><xsl:apply-templates select="current()" mode="link"/></td>
     <td><xsl:value-of select="@fuzzy"/></td>
     <td><xsl:value-of select="@untranslated"/></td>
   </tr>
@@ -201,7 +202,7 @@
 
 <xsl:template match="file" mode="spell">
   <tr>
-    <td><xsl:value-of select="@name"/></td>
+    <td><xsl:apply-templates select="current()" mode="link"/></td>
     <td><xsl:apply-templates select="error" mode="spell"/></td>
   </tr>
 </xsl:template>
@@ -288,7 +289,16 @@
 </xsl:template>
 
 <xsl:template match="filename">
-  <xsl:value-of select="current()"/>
+  <xsl:choose>
+    <xsl:when test="string-length($basefileurl) &gt; 0">
+      <a href="{$basefileurl}{current()}">
+        <xsl:value-of select="current()"/>
+      </a>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="current()"/>
+    </xsl:otherwise>
+  </xsl:choose>
   <xsl:if test="position()!=last()"><br/></xsl:if>
 </xsl:template>
 
@@ -341,6 +351,19 @@
     </xsl:when>
     <xsl:otherwise>
       <xsl:text>no problems found</xsl:text>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<xsl:template match="file" mode="link">
+  <xsl:choose>
+    <xsl:when test="string-length($basefileurl) &gt; 0">
+      <a href="{$basefileurl}{@name}">
+        <xsl:value-of select="@name"/>
+      </a>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="@name"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
