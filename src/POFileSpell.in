@@ -12,6 +12,7 @@
 import sys
 import os
 import getopt
+import re
 if not "@prefix@/share/@PACKAGE@" in sys.path:
     sys.path.append("@prefix@/share/@PACKAGE@")
 from POFile import POFile
