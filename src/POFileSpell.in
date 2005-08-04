@@ -187,6 +187,34 @@ def addSpellExtra(po, filename, e):
         return 1
     return 0
 
+def addSpellExtraFile(args, errorFile):
+    fn = os.path.expandvars(os.path.expanduser(errorFile))
+    words = open(fn).readlines()
+    wordlist = []
+    
+    if words is not None:
+        wordlist = string.split(string.join(words))
+    else:
+        sys.stderr.write('error reading errors file %s\n' % errorFile)
+        return
+
+    for filename in args:
+        po = POFile(filename)
+        if po.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+            return
+        else:
+            po.parseHeader()
+            for word in wordlist:
+                addSpellExtra(po, filename, word)
+                
+def addSpellExtraFiles(args, errorFileList):                
+    if errorFileList is not None:
+        for file in errorFileList:
+            addSpellExtraFile(args, file)
+    else:
+        sys.stderr.write('no error files provided\n')
+
 if interactive:
     interactiveSpelling(args, dict, dictfiles, spellCommand)
 else:
