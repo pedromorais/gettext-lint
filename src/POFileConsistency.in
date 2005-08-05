@@ -154,7 +154,11 @@ def interactiveConsistency(map, equivalent):
                     po = POFile(fx)
                     po.parse()
                     po.parseHeader()
-                    addIgnoreConsistency(po, msgid)
+                    if addIgnoreConsistency(po, msgid):
+                        print '+++ Add ignore consistency to %s - %s' % (
+                            fx, msgid)
+                    else:
+                        print '+++ Error adding ignore consistency to %s' % fx
             continue
         n = -1
         try:
