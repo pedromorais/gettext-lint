@@ -133,7 +133,7 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                         for line, message, context in ctxs:
                             podata = po.data[message - 1]
                             regexp = re.compile('\\b' + e + '\\b')
-                            rrr = r.sub(replace, podata[3])
+                            rrr = regexp.sub(replace, podata[3])
                             lines = po.prepare_replace(message)
                             if lines != None:
                                 file = open(filename, 'w')
