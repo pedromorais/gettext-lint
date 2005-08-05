@@ -162,7 +162,6 @@ def interactiveSpelling(args, dict, dictfiles, spellCommand):
                     print
 
 def batchAddSpellExtra(args, wordlist):
-    wordlist = []
     for filename in args:
         po = POFile(filename)
         if po.parse() == 0:
