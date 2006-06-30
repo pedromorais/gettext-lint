@@ -1,8 +1,8 @@
 man_MANS = POFileConsistency.1 POFileChecker.1 POFileSpell.1 \
-	POFileFill.1 POFileEquiv.1 POFileStatus.1
+	POFileFill.1 POFileEquiv.1 POFileStatus.1 POFileClean.1
 EXTRA_DIST = $(man_MANS)
 docbook = POFileConsistency.xml POFileChecker.xml POFileSpell.xml \
-	POFileFill.xml POFileEquiv.xml POFileStatus.xml
+	POFileFill.xml POFileEquiv.xml POFileStatus.xml POFileClean.xml
 
 docbook: docbook2man docbook2html
 

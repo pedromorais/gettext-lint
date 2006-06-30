@@ -1,4 +1,4 @@
-AC_INIT(gettext-lint, 0.3.2, morais@kde.org)
+AC_INIT(gettext-lint, 0.4.0, morais@kde.org)
 AM_INIT_AUTOMAKE
 AM_PATH_PYTHON(2.0)
 
@@ -14,4 +14,5 @@ src/POFileEquiv
 src/POFileFill
 src/POFileSpell
 src/POFileStatus
+src/POFileClean
 ], [chmod +x $(ls src/PO*.in | sed s/.in//g)])

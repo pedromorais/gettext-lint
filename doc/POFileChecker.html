@@ -1,32 +1,32 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileChecker</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2925571"></a><div class="titlepage"><div></div><div></div></div><div class="refnamediv"><h2>Name</h2><p>POFileChecker &#8212; searches for common mistakes in PO/POT files</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><tt class="command">POFileChecker</tt>  [<i class="replaceable"><tt>OPTION</tt></i>] [<i class="replaceable"><tt>...</tt></i>] [<i class="replaceable"><tt>FILE</tt></i>] [<i class="replaceable"><tt>...</tt></i>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileChecker</title><meta name="generator" content="DocBook XSL Stylesheets V1.69.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2708301"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>POFileChecker &#8212; searches for common mistakes in PO/POT files</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">POFileChecker</code>  [<em class="replaceable"><code>OPTION</code></em>] [<em class="replaceable"><code>...</code></em>] [<em class="replaceable"><code>FILE</code></em>] [<em class="replaceable"><code>...</code></em>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
       <span class="application">POFileChecker</span>
       searches for common mistakes in PO/POT files.
     </p></div><div class="refsect1" lang="en"><a name="options"></a><h2>Command Line Options</h2><div class="variablelist"><dl><dt><span class="term">
-          <tt class="option">--help</tt> or <tt class="option">-h</tt>
+          <code class="option">--help</code> or <code class="option">-h</code>
         </span></dt><dd>
             show usage instructions
           </dd><dt><span class="term">
-          <tt class="option">--pot</tt> or <tt class="option">-t</tt>
+          <code class="option">--pot</code> or <code class="option">-t</code>
         </span></dt><dd>
             check a pot file, not a po file
           </dd><dt><span class="term">
-          <tt class="option">--ignore-fuzzy</tt> or <tt class="option">-i</tt>
+          <code class="option">--ignore-fuzzy</code> or <code class="option">-i</code>
         </span></dt><dd>
             don't check validity of fuzzy entries
           </dd></dl></div></div><div class="refsect1" lang="en"><a name="headerdirectives"></a><h2>PO File Header Directives</h2><p>
       <span class="application">POFileChecker</span> recognizes several PO file
       header directives. As with all gettext lint tools, these directives
       are all prefixed with X-POFile.
-    </p><div class="variablelist"><dl><dt><span class="term">X-POFile-Allow: <i class="replaceable"><tt>number</tt></i></span></dt><dd>
+    </p><div class="variablelist"><dl><dt><span class="term">X-POFile-Allow: <em class="replaceable"><code>number</code></em></span></dt><dd>
             number of errors to ignore; if number of detected errors is
             diffent than this they will all be reported; a file with 0
             errors but an error allowance greater than zero will also 
             be reported
-          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-CheckAccelerator: <i class="replaceable"><tt>1|0</tt></i></span></dt><dd>
+          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-CheckAccelerator: <em class="replaceable"><code>1|0</code></em></span></dt><dd>
             enable or disable checking accelerators, enabled by default
-          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-CheckEndPontuation: <i class="replaceable"><tt>1|0</tt></i></span></dt><dd>
+          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-CheckEndPontuation: <em class="replaceable"><code>1|0</code></em></span></dt><dd>
             enable or disable checking ending pontuation, enabled by default
-          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-LineLength: <i class="replaceable"><tt>number</tt></i></span></dt><dd>
+          </dd></dl></div><div class="variablelist"><dl><dt><span class="term">X-POFile-LineLength: <em class="replaceable"><code>number</code></em></span></dt><dd>
             check that the line length doesn't exceed
-            <i class="replaceable"><tt>number</tt></i> chars; disable by default
+            <em class="replaceable"><code>number</code></em> chars; disable by default
           </dd></dl></div></div><div class="refsect1" lang="en"><a name="moreinfo"></a><h2>More Information</h2><p>gettext-lint web page: http://gettext-lint.sourceforge.net/</p></div></div></body></html>

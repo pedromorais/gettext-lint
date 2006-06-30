@@ -2,30 +2,24 @@
 .\" It was generated using the DocBook XSL Stylesheets (version 1.69.1).
 .\" Instead of manually editing it, you probably should edit the DocBook XML
 .\" source for it and then use the DocBook XSL Stylesheets to regenerate it.
-.TH "POFILEEQUIV" "1" "06/30/2006" "" ""
+.TH "POFILECLEAN" "1" "06/30/2006" "" ""
 .\" disable hyphenation
 .nh
 .\" disable justification (adjust text to left margin only)
 .ad l
 .SH "NAME"
-POFileEquiv \- glossary generator
+POFileClean \- resets the msgstr for situations where it's just a copy of msgid
 .SH "SYNOPSIS"
 .HP 12
-\fBPOFileEquiv\fR [\fIOPTION\fR] [\fI...\fR] [\fIFILE\fR] [\fI...\fR]
+\fBPOFileClean\fR [\fIOPTION\fR] [\fI...\fR] [\fITARGET\ FILE\fR] [\fIFILE\fR] [\fI...\fR]
 .SH "INTRODUCTION"
 .PP
-POFileEquiv
-tries to generate a glossary based on a large enough sample of translations
+POFileClean
+resets the msgstr for situations where it's just a copy of msgid.
 .SH "COMMAND LINE OPTIONS"
 .TP
 \fB\-\-help\fR or \fB\-h\fR
 show usage instructions
-.TP
-\fB\-\-max\fR or \fB\-m\fR
-maximum number of words to include for each word
-.TP
-\fB\-\-ratio\fR or \fB\-r\fR
-minimum ratio to best match to include a word
 .SH "MORE INFORMATION"
 .PP
 gettext\-lint web page: http://gettext\-lint.sourceforge.net/

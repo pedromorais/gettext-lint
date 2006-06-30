@@ -1,32 +1,32 @@
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileStatus</title><meta name="generator" content="DocBook XSL Stylesheets V1.65.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2846723"></a><div class="titlepage"><div></div><div></div></div><div class="refnamediv"><h2>Name</h2><p>POFileStatus &#8212; validator and status reporting</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><tt class="command">POFileStatus</tt>  [<i class="replaceable"><tt>OPTION</tt></i>] [<i class="replaceable"><tt>...</tt></i>] [<i class="replaceable"><tt>FILE</tt></i>] [<i class="replaceable"><tt>...</tt></i>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>POFileStatus</title><meta name="generator" content="DocBook XSL Stylesheets V1.69.1"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="refentry" lang="en"><a name="id2830839"></a><div class="titlepage"></div><div class="refnamediv"><h2>Name</h2><p>POFileStatus &#8212; validator and status reporting</p></div><div class="refsynopsisdiv"><h2>Synopsis</h2><div class="cmdsynopsis"><p><code class="command">POFileStatus</code>  [<em class="replaceable"><code>OPTION</code></em>] [<em class="replaceable"><code>...</code></em>] [<em class="replaceable"><code>FILE</code></em>] [<em class="replaceable"><code>...</code></em>]</p></div></div><div class="refsect1" lang="en"><a name="introduction"></a><h2>Introduction</h2><p>
       <span class="application">POFileStatus</span>
       validates files using <span class="application">msgfmt</span> and
       reports its status.
     </p></div><div class="refsect1" lang="en"><a name="options"></a><h2>Command Line Options</h2><div class="variablelist"><dl><dt><span class="term">
-          <tt class="option">--help</tt> or <tt class="option">-h</tt>
+          <code class="option">--help</code> or <code class="option">-h</code>
         </span></dt><dd>
             show usage instructions
           </dd><dt><span class="term">
-          <tt class="option">--show-all</tt> or <tt class="option">-a</tt>
+          <code class="option">--show-all</code> or <code class="option">-a</code>
         </span></dt><dd>
             show all files, even if 100% translated
           </dd><dt><span class="term">
-          <tt class="option">--break-path</tt> or <tt class="option">-b</tt>
+          <code class="option">--break-path</code> or <code class="option">-b</code>
         </span></dt><dd>
             all file path componentes to the output;
             for example, for the file 
-            <i class="replaceable"><tt>dir</tt></i>/<i class="replaceable"><tt>file.po</tt></i>
-            the attributes <tt class="varname">name-1="dir"</tt> and
-            <tt class="varname">name-2="file.po"</tt> would be added
+            <em class="replaceable"><code>dir</code></em>/<em class="replaceable"><code>file.po</code></em>
+            the attributes <code class="varname">name-1="dir"</code> and
+            <code class="varname">name-2="file.po"</code> would be added
           </dd><dt><span class="term">
-          <tt class="option">--pot-dir=</tt><i class="replaceable"><tt>dir</tt></i> or
-          <tt class="option">-p </tt><i class="replaceable"><tt>dir</tt></i>
+          <code class="option">--pot-dir=</code><em class="replaceable"><code>dir</code></em> or
+          <code class="option">-p </code><em class="replaceable"><code>dir</code></em>
         </span></dt><dd>
             use this pot templates dir to check if a po file is obsolete
             or if a pot file is completely untranslated
           </dd><dt><span class="term">
-          <tt class="option">--pot-exclude=</tt><i class="replaceable"><tt>pat</tt></i> or
-          <tt class="option">-p </tt><i class="replaceable"><tt>pat</tt></i>
+          <code class="option">--pot-exclude=</code><em class="replaceable"><code>pat</code></em> or
+          <code class="option">-p </code><em class="replaceable"><code>pat</code></em>
         </span></dt><dd>
             exclude pot files that match this pattern;
             can be used multiple times

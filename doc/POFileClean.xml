@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+]>
+
+<refentry>
+  <refentryinfo>
+    <title>POFileClean Manual</title>
+    <copyright>
+      <year>2004</year>
+    </copyright>
+    <author>
+      <firstname>Pedro</firstname>
+      <surname>Morais</surname>
+    </author>
+    <address><email>morais@kde.org</email></address>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>POFileClean</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>POFileClean</refname>
+    <refpurpose>
+      resets the msgstr for situations where it's just a copy of msgid
+    </refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>POFileClean</command>
+      <arg><replaceable>OPTION</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
+      <arg><replaceable>TARGET FILE</replaceable></arg>
+      <arg><replaceable>FILE</replaceable></arg>
+      <arg><replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1 id="introduction">
+    <title>Introduction</title>
+    <para>
+      <application>POFileClean</application>
+      resets the msgstr for situations where it's just a copy of msgid.
+    </para>
+  </refsect1>
+
+  <refsect1 id="options">
+    <title>Command Line Options</title>    
+    <variablelist>
+      <varlistentry>
+	<term>
+          <option>--help</option> or <option>-h</option>
+        </term>
+	<listitem>
+	  <simpara>
+            show usage instructions
+          </simpara>
+	</listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1 id="moreinfo">
+    <title>More Information</title>
+    <para>gettext-lint web page: http://gettext-lint.sourceforge.net/</para>
+  </refsect1>
+</refentry>

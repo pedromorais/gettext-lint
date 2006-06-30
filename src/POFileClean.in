@@ -1,0 +1,51 @@
+#!@PYTHON@
+# -*- mode: Python; coding: utf-8; -*-
+
+# Resets the msgstr for situations where it's just a copy of msgid
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# João Miguel Neves <joao@silvaneves.org>
+# (c) Copyright 2003 - 2006
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+import getopt
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+
+def usage(code = -1):
+    w = sys.stderr.write
+    w('Usage: POFileClean <OPTION> <TARGET FILE>...\n')
+    w('\n')
+    w('Options:\n')
+    w('  -h, --help                 show this help\n')
+    sys.exit(code)
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "h", ["help"])
+except getopt.GetoptError:
+    usage()
+for o, a in opts:
+    if o in ("-h", "--help"):
+        usage(0)
+if len(args) != 1: usage()
+
+map = None
+
+target = POFile(args[0])
+if target.parse() == 0:
+    sys.stderr.write('error parsing target file %s\n' % target.filename)
+    sys.exit(-2)
+
+for i in target.data:
+    line, message, msgid, msgstr, fuzzy = i
+    if (msgid == msgstr):
+	newmsgstr = ""
+	po = POFile(target.filename)
+        lines = po.prepare_replace(message)
+        if lines != None:
+            file = open(target.filename, 'w')
+            po.execute_replace(lines, newmsgstr, 1, file)
+            file.close()
