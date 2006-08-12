@@ -32,7 +32,7 @@ class POFile:
         self.enableCheckLineLength = 0
         self.ignoreFuzzy = 0
         self.spellExtra = []
-        self.spellCommand = 'aspell --encoding=UTF-8 -l'
+        self.spellCommand = 'cat'
 
     def getRatio(self):
         if self.translated == None: return None   

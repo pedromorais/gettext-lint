@@ -18,6 +18,8 @@ if not "@prefix@/share/@PACKAGE@" in sys.path:
 from POFile import POFile
 from util import Output
 
+spellCommand = 'aspell --encoding=UTF-8 list'
+
 def usage(code = -1):
     w = sys.stderr.write
     w('Usage: POFileSpell [OPTION] <FILE>...\n')
@@ -32,7 +34,7 @@ def usage(code = -1):
     w('  -d, --dict=<file>          load a extra dictionary file\n')
     w('      --batch-add=<file>     add words on file to ignore list\n')
     w('      --command=<command>    command used for spellchecking\n')
-    w('                             (default: "aspell --encoding=UTF-8 -l")\n')
+    w('                             (default: "%s")\n' % spellCommand)
     sys.exit(code)
 
 try:
@@ -46,7 +48,6 @@ overview = None
 dict = {}
 dictfiles = []
 batchaddwordlist = []
-spellCommand = None
 for o, a in opts:
     if o in ("-h", "--help"): usage(0)
     if o in ("-i", "--interactive"): interactive = 1
