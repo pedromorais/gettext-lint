@@ -26,7 +26,7 @@ def usage(code = -1):
     w('Options:\n')
     w('  -h, --help                 show this help\n')
     w('  -m, --max=<number>         maximum words to consider\n')
-    w('  -o, --occurences=<number>  minimum number off occurences of a translation\n')
+    w('  -o, --occurences=<number>  minimum number of occurences of a translation\n')
     w('  -r, --ratio=<ratio>        minimum ratio to consider\n')
     sys.exit(code)
 

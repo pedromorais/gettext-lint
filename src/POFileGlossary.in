@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- mode: Python; coding: utf-8; -*-
 
-# PO file spell checker
+# PO file glossary checker
 # 
 # Pedro Morais <morais@kde.org>
 # José Nuno Pires <jncp@netcabo.pt>
