@@ -15,4 +15,5 @@ src/POFileFill
 src/POFileSpell
 src/POFileStatus
 src/POFileClean
+src/POFileGlossary
 ], [chmod +x $(ls src/PO*.in | sed s/.in//g)])

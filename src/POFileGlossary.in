@@ -1,0 +1,72 @@
+#!/usr/bin/python
+# -*- mode: Python; coding: utf-8; -*-
+
+# PO file spell checker
+# 
+# Pedro Morais <morais@kde.org>
+# José Nuno Pires <jncp@netcabo.pt>
+# João Neves <joao@silvanaves.org>
+# (c) Copyright 2006
+# Distributable under the terms of the GPL - see COPYING
+
+import sys
+import getopt
+if not "@prefix@/share/@PACKAGE@" in sys.path:
+    sys.path.append("@prefix@/share/@PACKAGE@")
+from POFile import POFile
+from util import Output
+from Glossary import Glossary
+
+def usage(code = -1):
+    w = sys.stderr.write
+    w('Usage: POFileSpell [OPTION] <GLOSSARY> <FILE>...\n')
+    w('\n')
+    w('Mandatory arguments to long options are mandatory '
+      'for short options too.\n')
+    w('\n')
+    w('Options:\n')
+    w('  -h, --help                 show this help\n')
+    w('  -o, --overview             generate an overview file\n')
+    sys.exit(code)
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], "ho",
+                               ["help", "overview"])
+except getopt.GetoptError:
+    usage()
+interactive = 0
+overview = None
+dict = {}
+dictfiles = []
+spellCommand = None
+for o, a in opts:
+    if o in ("-h", "--help"): usage(0)
+    if o in ("-o", "--overview"): overview = {}
+if len(args) < 2: usage()
+
+glossary = Glossary(args.pop(0))
+
+def checking(args, overview):
+    tagname = "po-file-glossary"
+    if overview != None: tagname = "po-file-glossary-overview"
+    out = Output(tagname)
+    for filename in args:
+        po = POFile(filename)
+        if po.parse() == 0:
+            sys.stderr.write('error parsing file %s\n' % filename)
+        else:
+            po.parseHeader()
+            po.glossary(glossary)
+            if len(po.glossaryErrors) > 0:
+                out.opentag('file',
+                            {'name': filename})
+                for l, m, e in po.glossaryErrors:
+                    out.opentag('error', {'line': str(l), 'message': str(m)},
+                                body = e, close = 1)
+                out.closetag()
+    if overview:
+        for i in overview.iteritems():
+            out.opentag('error', {'count': str(i[1])}, body = i[0], close = 1)
+    out.finish()
+
+checking(args, overview)

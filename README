@@ -2,7 +2,8 @@ gettext lint tools
 
 Pedro Morais <morais@kde.org>
 José Nuno Pires <jncp@netcabo.pt>
-(c) Copyright 2003, 2004
+João Neves <joao@silvaneves.org>
+(c) Copyright 2003 - 2006
 Distributable under the terms of the GPL - see COPYING
 
 This packages includes the following tools:
@@ -12,6 +13,8 @@ POFileConsistency - consistency checker
 POFileEquiv - glossary generator
 POFileSpell - spell checker
 POFileFill - fill a file with entries already translated in other files
+POFileClean - remove translations for a PO file
+POFileGlossary - create a glossary from PO files
 
 All the commands produce XML output; you can feed this output to report.xsl
 (probably located on /usr/share/gettext-lint/report.xsl) to generate

@@ -5,7 +5,8 @@ bin_SCRIPTS = \
         POFileFill \
 	POFileSpell \
 	POFileStatus \
-	POFileClean
+	POFileClean \
+	POFileGlossary
 
 EXTRA_DIST = *.py PO*.in
 

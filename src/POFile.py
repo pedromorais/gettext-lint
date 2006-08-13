@@ -22,6 +22,7 @@ class POFile:
         self.data = []
         self.errors = []
         self.spellErrors = []
+        self.glossaryErrors = []
         self.ignoreConsistency = []
         self.consistencyAlias = []
         self.allowCount = None
@@ -258,6 +259,28 @@ class POFile:
             word = word[:-1]
             if not wse.has_key(word): ws[word] = word
         self.spellErrors = ws.keys()
+        return 1
+
+    def glossary(self, glossary):
+        self.glossaryErrors = []
+        msg = 0
+        for line, message, msgid, msgstr, fuzzy in self.data:
+            msg = msg + 1
+            words = msgid.split(' ') # Should cover more cases than this.
+            for word in words:
+                error = 0 # If it's not on the glossary, then it's not wrong.
+                try:
+                    if (glossary[word]):
+                        error = 1
+                        translations = glossary[word]
+                        for translation in translations:
+                            if (msgstr.decode('utf-8').find(translation) > -1):
+                                error = 0
+                                break
+                except KeyError:
+                    pass
+                if (error == 1):
+                    self.glossaryErrors.append((line, msg, word))
         return 1
 
     def consistency(self, map, strip):
