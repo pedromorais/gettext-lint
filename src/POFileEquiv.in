@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/python
 # -*- mode: Python; coding: utf-8; -*-
 
 # PO file translation glossary generator
@@ -26,19 +26,22 @@ def usage(code = -1):
     w('Options:\n')
     w('  -h, --help                 show this help\n')
     w('  -m, --max=<number>         maximum words to consider\n')
+    w('  -o, --occurences=<number>  minimum number off occurences of a translation\n')
     w('  -r, --ratio=<ratio>        minimum ratio to consider\n')
     sys.exit(code)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hm:r:",
+    opts, args = getopt.getopt(sys.argv[1:], "hm:o:r:",
                                ["help", "max=", "ratio="])
 except getopt.GetoptError:
     usage()
-max = -1
+max_words = -1
 ratio = 0
+occurences = 0
 for o, a in opts:
     if o in ("-h", "--help"): usage(0)
-    if o in ("-m", "--max"): max = int(a)
+    if o in ("-m", "--max"): max_words = int(a)
+    if o in ("-o", "--occurences"): occurences = int(a)
     if o in ("-r", "--ratio"): ratio = int(a)
 if len(args) < 1: usage()
 
@@ -58,9 +61,10 @@ for word, matches in equiv.iteritems():
     out.opentag('original', body = word, close = 1)
     items.sort(lambda x, y: y[1] - x[1])
     localmax = items[0][1]
-    for m, c in items[:max]:
-        if c < localmax * ratio: break
+    line = max(occurences, localmax*ratio)
+    for m, c in items[:max_words]: 
+        if c < line: break
         out.opentag('translation', { 'count': str(c) },
-                    body = word, close = 1)
+                    body = m, close = 1)
     out.closetag()
 out.finish()
