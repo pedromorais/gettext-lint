@@ -5,9 +5,9 @@
 
 <refentry>
   <refentryinfo>
-    <title>POFileEquiv Manual</title>
+    <title>POFileGlossary Manual</title>
     <copyright>
-      <year>2004</year>
+      <year>2006</year>
     </copyright>
     <author>
       <firstname>Pedro</firstname>
@@ -17,22 +17,21 @@
   </refentryinfo>
 
   <refmeta>
-    <refentrytitle>POFileEquiv</refentrytitle>
+    <refentrytitle>POFileGlossary</refentrytitle>
     <manvolnum>1</manvolnum>
   </refmeta>
 
   <refnamediv>
-    <refname>POFileEquiv</refname>
-    <refpurpose>
-      glossary generator
-    </refpurpose>
+    <refname>POFileGlossary</refname>
+    <refpurpose>checks a collection of PO files against a glossary</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>POFileEquiv</command>
+      <command>POFileGlossary</command>
       <arg><replaceable>OPTION</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
+      <arg><replaceable>GLOSSARY</replaceable></arg>
       <arg><replaceable>FILE</replaceable></arg>
       <arg><replaceable>...</replaceable></arg>
     </cmdsynopsis>
@@ -41,9 +40,8 @@
   <refsect1 id="introduction">
     <title>Introduction</title>
     <para>
-      <application>POFileEquiv</application>
-      tries to generate a glossary based on a large enough sample of
-      translations
+      <application>POFileGlossary</application>
+      checks a collection of PO files against a glossary
     </para>
   </refsect1>
 
@@ -62,35 +60,22 @@
       </varlistentry>
       <varlistentry>
 	<term>
-          <option>--max</option> or <option>-m</option>
+          <option>--overview</option> or <option>-o</option>
         </term>
 	<listitem>
 	  <simpara>
-            maximum number of translations to consider
-          </simpara>
-	</listitem>
-      </varlistentry>
-      <varlistentry>
-	<term>
-          <option>--occurences</option> or <option>-o</option>
-        </term>
-	<listitem>
-	  <simpara>
-            minimum number of occurences of a translation
-          </simpara>
-	</listitem>
-      </varlistentry>
-      <varlistentry>
-	<term>
-          <option>--ratio</option> or <option>-r</option>
-        </term>
-	<listitem>
-	  <simpara>
-            minimum ratio to best match to include a word
+            generate an overview file, grouping by error and not by file
           </simpara>
 	</listitem>
       </varlistentry>
     </variablelist>
+  </refsect1>
+
+  <refsect1 id="consistencyfile">
+    <title>Glossary File Format</title>
+    <para>
+      Glossary files are in XML format.
+    </para>
   </refsect1>
 
   <refsect1 id="moreinfo">
