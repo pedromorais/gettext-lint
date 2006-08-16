@@ -19,7 +19,7 @@ from Glossary import Glossary
 
 def usage(code = -1):
     w = sys.stderr.write
-    w('Usage: POFileSpell [OPTION] <GLOSSARY> <FILE>...\n')
+    w('Usage: POFileGlossary [OPTION] <GLOSSARY> <FILE>...\n')
     w('\n')
     w('Mandatory arguments to long options are mandatory '
       'for short options too.\n')
