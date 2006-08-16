@@ -57,11 +57,12 @@ out = Output("po-file-equiv")
 for word, matches in equiv.iteritems():
     items = matches.items()
     if len(items) < 1: continue
-    out.opentag('entry')
-    out.opentag('original', body = word, close = 1)
     items.sort(lambda x, y: y[1] - x[1])
     localmax = items[0][1]
     line = max(occurences, localmax*ratio)
+    if localmax < line: continue
+    out.opentag('entry')
+    out.opentag('original', body = word, close = 1)
     for m, c in items[:max_words]: 
         if c < line: break
         out.opentag('translation', { 'count': str(c) },
