@@ -47,5 +47,6 @@ An experimental glossary building tool is also included.
 %{_mandir}/man1/POFileSpell.1*
 %{_mandir}/man1/POFileStatus.1*
 %{_mandir}/man1/POFileClean.1*
+%{_mandir}/man1/POFileGlossary.1*
 %{_datadir}/%{name}
 %doc COPYING README NEWS AUTHORS
