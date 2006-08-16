@@ -58,16 +58,6 @@
           </simpara>
 	</listitem>
       </varlistentry>
-      <varlistentry>
-	<term>
-          <option>--overview</option> or <option>-o</option>
-        </term>
-	<listitem>
-	  <simpara>
-            generate an overview file, grouping by error and not by file
-          </simpara>
-	</listitem>
-      </varlistentry>
     </variablelist>
   </refsect1>
 
