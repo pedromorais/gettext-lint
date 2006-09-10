@@ -39,7 +39,7 @@ if len(args) < 2: usage()
 
 glossary = Glossary(args.pop(0))
 
-def checking(args, overview):
+def checking(args):
     out = Output("po-file-glossary")
     for filename in args:
         po = POFile(filename)
@@ -57,4 +57,4 @@ def checking(args, overview):
                 out.closetag()
     out.finish()
 
-checking(args, overview)
+checking(args)
