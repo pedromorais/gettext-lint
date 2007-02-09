@@ -1,3 +1,9 @@
+* Version 0.4.0 (2007-02-09):
+- add POFileGlossary, a tool to check a translation against an existing
+  glossary.
+- add POFileClean, a tool to eliminate translations that are not translated.
+- corrected several bugs in several tools, mainly POFileEquiv.
+
 * Version 0.3.2 (2005-08-06):
 - add to local file ignore list command in POFileConsistency interactive mode
 - add --batch-add option to POFileSpell
