@@ -270,11 +270,12 @@ class POFile:
             for word in words:
                 error = 0 # If it's not on the glossary, then it's not wrong.
                 try:
-                    if (glossary[word]):
+                    lword = word.lower()
+                    if (glossary[lword]):
                         error = 1
-                        translations = glossary[word]
+                        translations = glossary[lword]
                         for translation in translations:
-                            if (msgstr.decode('utf-8').find(translation) > -1):
+                            if (msgstr.decode('utf-8').lower().find(translation.lower()) > -1):
                                 error = 0
                                 break
                 except KeyError:
