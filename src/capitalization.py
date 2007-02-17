@@ -42,7 +42,7 @@ def capitalization(s, ignoreUpper = (), ignoreLower = ()):
 
 def requiredCapitalization(s):
     x = s.strip()
-    l = len(s.strip())
+    l = len(x)
     if l > 0 and x[-1] in (':',):
         return CAP_SENTENCE
     return CAP_UNKNOWN

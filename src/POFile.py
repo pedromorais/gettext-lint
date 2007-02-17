@@ -320,7 +320,7 @@ class POFile:
             if self.enableCheckCapitalization:
                 self.checkCapitalization(i, s, l, msg)
             if self.enableCheckEndPontuation:
-                self.checkEndPontuation(i, s, l, msg)
+                self.checkEndPunctuation(i, s, l, msg)
             if len(s) > 1 and s[:2] == "_:":
                 self.errors.append((l, msg, '_: on msgstr'))
             if s[-1] == "<" and i[-1] != '<':
@@ -352,7 +352,7 @@ class POFile:
             if sc != ic:
                 self.errors.append((pos, msg, 'capitalization error'))
 
-    def checkEndPontuation(self, i, s, pos, msg):
+    def checkEndPunctuation(self, i, s, pos, msg):
         if i[-1] == ':' and s[-1] != ':':
             self.errors.append((pos, msg, 'missing :'))
         if len(i) > 1 and len(s) > 1 and i[-2:] == ": " and s[-2:] != ": ":
