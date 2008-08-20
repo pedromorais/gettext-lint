@@ -1,31 +1,30 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from xml.dom.ext.reader import Sax2
-from xml import xpath
+try:
+    import cElementTree as ET
+except ImportError:
+    import xml.etree.cElementTree as ET
 
 class Glossary:
     def __init__(self, filename):
         f = open(filename,'r')
         self.dict = {}
-        
-        # create Reader object
-        reader = Sax2.Reader()
 
         # parse the document
-        doc = reader.fromStream(f)
+        tree = ET.parse(f)
 
-        nodes = xpath.Evaluate('word', doc.documentElement)
+        nodes = tree.findall('word')
         for node in nodes:
-            key = xpath.Evaluate('original/child::text()',node)
-            values = xpath.Evaluate('translation/term/child::text()',node)
-            key = key[0].nodeValue
+            key = node.findtext('original/')
+            values = node.findall('translation/term/')
             try:
                 a = self.dict[key]
             except KeyError:
                 self.dict[key] = []
             for value in values:
-                self.dict[key].append(value.nodeValue)
+                if value.text != None:
+                    self.dict[key].append(value.text)
 
     def __getitem__(self, k):
         return self.dict[k]
