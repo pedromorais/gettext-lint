@@ -17,11 +17,10 @@
     </doap:maintainer>
     <doap:download-page rdf:resource="http://sourceforge.net/project/showfiles.php?group_id=122521"/>
     <doap:repository>
-      <doap:CVSRepository>
-        <doap:anon-root>:pserver:anonymous@cvs.sourceforge.net:/cvsroot/gettext-lint</doap:anon-root>
-        <doap:module>gettext-lint</doap:module>
-        <doap:browse rdf:resource="http://cvs.sourceforge.net/viewcvs.py/gettext-lint/"/>
-      </doap:CVSRepository>
+      <doap:SVNRepository>
+        <doap:location rdf:resource="https://gettext-lint.svn.sourceforge.net/svnroot/gettext-lint/trunk/gettext-lint/"/> 
+        <doap:browse rdf:resource="http://gettext-lint.svn.sourceforge.net/viewvc/gettext-lint/trunk/gettext-lint/"/>
+      </doap:SVNRepository>
     </doap:repository>
   </doap:Project>
 </rdf:RDF>
