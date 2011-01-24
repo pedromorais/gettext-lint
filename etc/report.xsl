@@ -4,6 +4,7 @@
 		xmlns="http://www.w3.org/1999/xhtml">
 
 <xsl:output method="xml" media-type="text/html"
+            encoding="utf-8"
             doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"
             doctype-public="-//W3C//DTD XHTML 1.1//EN"/>
 
