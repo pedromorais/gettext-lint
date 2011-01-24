@@ -86,6 +86,8 @@ class POFile:
             line = line + 1
             l = i.strip()
             if len(l) == 0: continue
+            # msgctx lines are tips for the translator
+            if i[:6] == "msgctx": continue
             if i[0] == '#':
                 if i.startswith('#, fuzzy'): fuzzy = 1
                 continue
