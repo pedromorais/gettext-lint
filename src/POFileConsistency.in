@@ -31,12 +31,14 @@ def usage(code = -1):
     w('  -o, --only-empty           only check empty msgstrs\n')
     w('  -m, --match=<file>         only check files matching this name\n')
     w('  -r, --strip-chars=<chars>  remove this chars from the msgids\n')
+    w('  -s, --min-size=<number>    only check for msgids at least this long\n')
     sys.exit(code)
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "hioe:m:r:",
+    opts, args = getopt.getopt(sys.argv[1:], "hioe:m:r:s:",
                                ["help", "interactive", "only-empty",
-                                "equivalent=", "match=", "strip-chars="])
+                                "equivalent=", "match=", "strip-chars=",
+                                "min-size="])
 except getopt.GetoptError:
     usage()
 interactive = 0
@@ -44,6 +46,7 @@ equivalentfiles = []
 onlyempty = 0
 match = None
 strip = ''
+min_size = 0
 for o, a in opts:
     if o in ("-h", "--help"): usage(0)
     if o in ("-i", "--interactive"): interactive = 1
@@ -51,6 +54,7 @@ for o, a in opts:
     if o in ("-e", "--equivalent"): equivalentfiles.append(a)
     if o in ("-m", "--match"): match = a
     if o in ("-r", "--strip-chars"): strip = a
+    if o in ("-s", "--min-size"): min_size = int(a)
 if len(args) < 1: usage()
 
 equivalent = Equivalent()
@@ -97,6 +101,7 @@ def inconsistent(msgid, result, equivalent):
 def consistency(map, equivalent):
     out = Output("po-file-consistency")
     for msgid, result in map.iteritems():
+        if len(msgid) < min_size: continue
         if not inconsistent(msgid, result, equivalent): continue
         out.opentag('inconsistency')
         out.opentag('msgid', body = msgid, close = 1)
@@ -114,9 +119,11 @@ def interactiveConsistency(map, equivalent):
     current = 0
     total = 0
     for msgid, result in map.iteritems():
+        if len(msgid) < min_size: continue
         if inconsistent(msgid, result, equivalent): total = total + 1
 
     for msgid, result in map.iteritems():
+        if len(msgid) < min_size: continue
         if not inconsistent(msgid, result, equivalent): continue
         current = current + 1
         print '*** msgid (%d/%d):\n%s' % (current, total, msgid)
