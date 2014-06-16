@@ -355,13 +355,15 @@ class POFile:
                 self.errors.append((pos, msg, 'capitalization error'))
 
     def checkEndPunctuation(self, i, s, pos, msg):
-        if i[-1] == ':' and s[-1] != ':':
+        # allow Chinese punctuation
+        unicode_s = s.decode('utf_8')
+        if i[-1] == ':' and s[-1] != ':' and unicode_s[-1] != u'：':
             self.errors.append((pos, msg, 'missing :'))
         if len(i) > 1 and len(s) > 1 and i[-2:] == ": " and s[-2:] != ": ":
             self.errors.append((pos, msg, 'missing : '))
         if len(i) > 2 and len(s) > 2 and i[-3:] == "..." and s[-3:] != "...":
             self.errors.append((pos, msg, 'missing ...'))
-        elif i[-1] == '.' and s[-1] != '.':
+        elif i[-1] == '.' and s[-1] != '.' and unicode_s[-1] != u'。':
             self.errors.append((pos, msg, 'missing .'))
 
     def checkLineLength(self, line, pos, msg, limit, single_lines):
