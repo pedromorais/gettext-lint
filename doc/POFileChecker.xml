@@ -69,7 +69,7 @@
       </varlistentry>
       <varlistentry>
 	<term>
-          <option>--ignore-fuzzy</option> or <option>-i</option>
+          <option>--ignore-fuzzy</option> or <option>-f</option>
         </term>
 	<listitem>
 	  <simpara>
